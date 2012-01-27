@@ -4,6 +4,8 @@
  */
 package server;
 
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import java.awt.Color;
 import java.io.IOException;
@@ -14,6 +16,8 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import shared.networking.Movement;
+import shared.networking.Positioning;
 
 /**
  *
@@ -37,7 +41,7 @@ public class GameServer {
         StyleConstants.setForeground(style_success, Color.green);
         
         Style style_unimportant = server_output_pane.addStyle("Unimportant", null);
-        StyleConstants.setForeground(style_unimportant, Color.gray);
+        StyleConstants.setForeground(style_unimportant, Color.yellow);
         StyleConstants.setFontSize(style_unimportant, 8);
         
         //Create new kryonet server
@@ -46,13 +50,26 @@ public class GameServer {
         try {
             server.bind(54555,54777);
             try {
-                server_output_doc.insertString(server_output_doc.getLength(), "Successful started server on port 54555(TCP) and 54777(UDP)", style_success);
+                server_output_doc.insertString(server_output_doc.getLength(), "Successful started server on port 54555(TCP) and 54777(UDP)\n", style_success);
             } catch (BadLocationException ex1) {}
         } catch (IOException ex) {
             try {
-                server_output_doc.insertString(server_output_doc.getLength(), "Could not connect on port 54555(TCP) or 54777(UDP)", style_fatal_error);
+                server_output_doc.insertString(server_output_doc.getLength(), "Could not connect on port 54555(TCP) or 54777(UDP)\n", style_fatal_error);
             } catch (BadLocationException ex1) {}
             System.err.println("Could not connect on port 54555(TCP) or 54777(UDP)");
         }
+        
+        server.addListener(new Listener(){
+           
+            @Override
+            public void received(Connection connection, Object object)
+            {
+                // if the user has sent a movement request.
+                if(object instanceof Movement)
+                {
+                    
+                }
+            }
+        });
     }   
 }
