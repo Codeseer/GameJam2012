@@ -38,6 +38,19 @@ public class GameObjectManager {
         return gameObjects.remove(gameObject);
     }
     
+    public GameObject get(int objectId)
+    {
+        Iterator<GameObject> iterator = gameObjects.iterator();
+        GameObject tmpObj;
+        for(;iterator.hasNext();)
+        {
+            tmpObj = iterator.next();
+            if(tmpObj.getObjectId()==objectId)
+                return tmpObj;
+        }
+        return null;
+    }
+    
     /**
      * Checks to see if an objectId corresponds to a GameObject
      * @param objectId the id to check for

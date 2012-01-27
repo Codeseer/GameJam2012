@@ -9,10 +9,11 @@ package server;
  * @author Scott Adams
  */
 public class Main {
+    public static GameServer gameServer;
     public static void main()
     {
         ServerFrame server_frame = new ServerFrame();
         server_frame.setVisible(true);
-        GameServer gameServer = new GameServer(server_frame.server_output_pane);
+        gameServer = new GameServer(server_frame.server_output_pane);
     }
 }

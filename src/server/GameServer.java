@@ -16,6 +16,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import shared.GameObjectManager;
 import shared.networking.Movement;
 import shared.networking.Positioning;
 
@@ -25,7 +26,8 @@ import shared.networking.Positioning;
  */
 public class GameServer {
     private Server server;
-    private StyledDocument server_output_doc; 
+    private StyledDocument server_output_doc;
+    public GameObjectManager gameObjectManager;
     public GameServer(JTextPane server_output_pane)
     {
         server_output_doc = server_output_pane.getStyledDocument();
@@ -43,6 +45,10 @@ public class GameServer {
         Style style_unimportant = server_output_pane.addStyle("Unimportant", null);
         StyleConstants.setForeground(style_unimportant, Color.yellow);
         StyleConstants.setFontSize(style_unimportant, 8);
+        
+        //create a new GameObjectManager for the server
+        gameObjectManager = new GameObjectManager();
+        
         
         //Create new kryonet server
         server = new Server();
