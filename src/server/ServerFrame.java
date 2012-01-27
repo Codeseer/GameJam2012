@@ -27,16 +27,20 @@ public class ServerFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        server_output_pane = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(640, 480));
 
-        jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jTextPane1.setFocusable(false);
-        jScrollPane1.setViewportView(jTextPane1);
+        server_output_pane.setBackground(new java.awt.Color(0, 0, 0));
+        server_output_pane.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        server_output_pane.setForeground(new java.awt.Color(255, 255, 255));
+        server_output_pane.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        server_output_pane.setFocusable(false);
+        jScrollPane1.setViewportView(server_output_pane);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Server I/O");
@@ -126,6 +130,6 @@ public class ServerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextPane jTextPane1;
+    public javax.swing.JTextPane server_output_pane;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,5 +13,6 @@ public class Main {
     {
         ServerFrame server_frame = new ServerFrame();
         server_frame.setVisible(true);
+        GameServer gameServer = new GameServer(server_frame.server_output_pane);
     }
 }
