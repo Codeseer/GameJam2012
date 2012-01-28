@@ -4,11 +4,13 @@
  */
 package shared.networking;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Scott Adams
  */
 public class UpdateResponse 
 {
-    
+    public ArrayList<GameObject> gameObjects;
 }
