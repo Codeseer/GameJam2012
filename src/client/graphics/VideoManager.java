@@ -12,13 +12,24 @@ import client.MultipleInstanceException;
  */
 public final class VideoManager {
     
-    private VideoManager gID;
+    private static VideoManager gID;
     
     public VideoManager() throws MultipleInstanceException
     {
         if (gID != null)
             throw new MultipleInstanceException("You can only have one " +
                     " instance of the singleton class VideoManager");
+        gID = this;
+    }
+    
+    public static VideoManager getVideoManager()
+    {
+        return gID;
+    }
+    
+    public static void render(RenderData r)
+    {
+        
     }
     
 }

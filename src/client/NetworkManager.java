@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import shared.networking.GameObject;
 import shared.networking.ServerRequest;
 import shared.networking.UpdateRequest;
+import shared.networking.UpdateResponse;
 
 /**
  *
@@ -64,10 +65,10 @@ public final class NetworkManager extends Thread {
             @Override
             public void received(Connection c, Object o)
             {
-                if (o instanceof ArrayList)
+                if (o instanceof UpdateResponse)
                 {
                     GamestateManager.getGamestateManager().addToUpdateQueue(
-                            ((ArrayList<GameObject>)o));
+                            ((UpdateResponse)o));
                 }
             }
         });

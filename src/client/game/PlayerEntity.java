@@ -4,6 +4,7 @@
  */
 package client.game;
 
+import client.graphics.RenderData;
 import shared.networking.PlayerObject;
 
 /**
@@ -18,6 +19,9 @@ public class PlayerEntity extends GameEntity {
     {
         super(p);
         health = p.getHealth();
+        
+        renderData = new RenderData("TestObject1", "face0");
+        
     }
     
 }

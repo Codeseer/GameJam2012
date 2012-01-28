@@ -4,6 +4,9 @@
  */
 package client.game;
 
+import java.util.ArrayList;
+import shared.networking.UpdateResponse;
+
 /**
  *
  * @author Syynth
@@ -27,19 +30,21 @@ public class PlayState extends Gamestate {
         world = new GameWorld();
     }
 
-    @Override
-    public void update() {
-        world.update();
+    public void update(ArrayList<UpdateResponse> updates) {
+        for (UpdateResponse u : updates)
+        {
+            world.update(updates.gameObjects);
+        }
     }
 
     @Override
     public void prerender() {
-        world.prerender();
+        world.render();
     }
 
     @Override
     public void render() {
-        world.render();
+        //
     }
     
 }

@@ -4,17 +4,19 @@
  */
 package client.game;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Syynth
  */
 public class GameWorld {
     
-    
+    ArrayList<GameEntity> gameEntities;
     
     public GameWorld()
     {
-        
+        gameEntities = new ArrayList<>();
     }
     
     public void update()

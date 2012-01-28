@@ -5,6 +5,7 @@
 package client.graphics;
 
 import client.resources.ResourceManager;
+import client.resources.Resource;
 
 /**
  *
@@ -13,7 +14,7 @@ import client.resources.ResourceManager;
 public class RenderData {
     
     private Quad quad;
-    //private Resource;
+    private Resource resource;
     
     public RenderData()
     {
@@ -23,6 +24,13 @@ public class RenderData {
     public RenderData(Quad q)
     {
         quad = q;
+    }
+    
+    public RenderData(String rName, String tName)
+    {
+        resource = ResourceManager.getResourceManager().getResource(rName);
+        quad = new Quad(0, 0, resource.getTexture(tName).getImageWidth(),
+                resource.getTexture(tName).getImageHeight());
     }
     
     public boolean isBlank()

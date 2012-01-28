@@ -6,6 +6,8 @@ package client.game;
 
 import client.ConnectionSuccessful;
 import client.NetworkManager;
+import java.util.ArrayList;
+import shared.networking.UpdateResponse;
 
 /**
  *
@@ -20,27 +22,23 @@ public class MenuState extends Gamestate implements ConnectionSuccessful {
 
     @Override
     public void onPop() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
     @Override
     public void create() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void update() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void update(ArrayList<UpdateResponse> updates) {
     }
 
     @Override
     public void render() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void prerender() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
