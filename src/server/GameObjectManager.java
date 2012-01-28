@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package shared;
+package server;
 
+import server.GameObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -83,6 +84,7 @@ public class GameObjectManager {
                 if(tmpGObj.isUpdated()&&tmpGObj.isTCP())
                 {
                         tcpArray.add(tmpGObj);
+                        tmpGObj.setUpdated(false);
                 }
             }
             tcpGameObjects = tcpArray;
@@ -106,6 +108,7 @@ public class GameObjectManager {
                 if(tmpGObj.isUpdated()&&!tmpGObj.isTCP())
                 {
                         udpArray.add(tmpGObj);
+                        tmpGObj.setUpdated(false);
                 }
             }
             udpGameObjects = udpArray;
@@ -114,5 +117,5 @@ public class GameObjectManager {
         }
         else
             return udpGameObjects;
-    }    
+    }
 }
