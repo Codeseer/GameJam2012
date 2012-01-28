@@ -10,4 +10,16 @@ package shared.networking;
  */
 public class PlayerObject extends GameObject {
     
+    private double health;
+    
+    public void setHealth(double health)
+    {
+        health = health < 0 ? 0 : (health > 1 ? 1 : health);
+    }
+    
+    public double getHealth()
+    {
+        return health;
+    }
+    
 }
