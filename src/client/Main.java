@@ -82,6 +82,8 @@ public class Main {
             } catch (LWJGLException e) {}
             resourceManager = new ResourceManager();
         } catch (MultipleInstanceException m) { }
+        
+        gamestateManager.start();
 
     }
 
@@ -127,6 +129,7 @@ public class Main {
         while (!Display.isCloseRequested()/* && !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)*/) {
             if (Display.isVisible()) {
                 update();
+                videoManager.render();
             } else {
                 if (Display.isDirty()) {
                     videoManager.render();
@@ -139,6 +142,7 @@ public class Main {
             Display.update();
             Display.sync(60);
         }
+        networkManager.disconnect();
     }
 
     public void update() {

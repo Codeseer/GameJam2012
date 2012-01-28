@@ -46,7 +46,7 @@ public class PlayState extends Gamestate {
 
     @Override
     public void render() {
-        VideoManager.getVideoManager().render();
+        //VideoManager.getVideoManager().render();
     }
     
 }

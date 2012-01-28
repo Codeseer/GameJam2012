@@ -32,6 +32,7 @@ public final class NetworkManager extends Thread {
         if (gID != null)
             throw new MultipleInstanceException("You can only have one " +
                     " instance of the singleton class NetworkManager");
+        gID = this;
     }
     
     @Override
@@ -74,6 +75,11 @@ public final class NetworkManager extends Thread {
                 }
             }
         });
+    }
+    
+    public void disconnect()
+    {
+        client.close();
     }
     
     public void addUpdateRequest()

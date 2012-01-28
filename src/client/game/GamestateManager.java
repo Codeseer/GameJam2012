@@ -7,7 +7,6 @@ package client.game;
 import client.MultipleInstanceException;
 import java.util.ArrayList;
 import java.util.Stack;
-import shared.networking.GameObject;
 import shared.networking.UpdateResponse;
 
 /**
@@ -32,7 +31,7 @@ public final class GamestateManager {
     
     public void start()
     {
-        gamestateStack.push(new MenuState());
+        pushGamestate(new MenuState());
     }
     
     public void pushGamestate(Gamestate gamestate)
