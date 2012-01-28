@@ -16,7 +16,7 @@ import client.MultipleInstanceException;
 public final class GamestateManager {
     
     private static Stack<Gamestate> gamestateStack;
-    static ArrayList<GameObject> updateQueue;
+    static ArrayList<ArrayList<GameObject>> updateQueue;
     private static GamestateManager gID = null;
     
     public GamestateManager() throws MultipleInstanceException

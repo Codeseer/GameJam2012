@@ -4,6 +4,8 @@
  */
 package client.game;
 
+import client.NetworkManager;
+
 /**
  *
  * @author Syynth
@@ -12,7 +14,8 @@ public class MenuState extends Gamestate {
 
     @Override
     public void onPush() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //throw new UnsupportedOperationException("Not supported yet.");
+        NetworkManager.getNetworkManager().start();
     }
 
     @Override

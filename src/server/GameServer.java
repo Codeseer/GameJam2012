@@ -61,6 +61,8 @@ public final class GameServer {
         //Register classes with kryo
         Kryo kryo = server.getKryo();
         kryo.register(ArrayList.class);
+        kryo.register(UpdateRequest.class);
+        kryo.register(ServerMessage.class);
         
         server.start();
         try {
