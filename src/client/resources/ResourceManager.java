@@ -6,10 +6,13 @@ package client.resources;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.util.ResourceLoader;
 
 /**
@@ -27,7 +30,7 @@ public class ResourceManager
     
     private void init()
     {
-        File assetsDir = new File("C:\\Users\\Scott Adams\\Documents\\NetBeansProjects\\GameJam2012\\dist\\assets");
+        File assetsDir = new File("assets");
         //load Textures
         File[] textureFiles = listFilesAsArray(assetsDir,new FilenameFilter() {
 

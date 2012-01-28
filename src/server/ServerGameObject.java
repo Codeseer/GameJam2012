@@ -6,7 +6,7 @@ package server;
 
 import java.util.ArrayList;
 import shared.networking.GameObject;
-import shared.networking.ServerMessage;
+import shared.networking.ServerRequest;
 
 /**
  *
@@ -16,7 +16,7 @@ public class ServerGameObject{
     private boolean TCP;
     private boolean updated;
     private GameObject gameObject;
-    private ArrayList<ServerMessage> messages;
+    private ArrayList<ServerRequest> messages;
 
     public GameObject getGameObject() {
     return gameObject;
@@ -42,7 +42,7 @@ public class ServerGameObject{
         this.updated = updated;
     }  
     
-    public void addMessage(ServerMessage sm)
+    public void addMessage(ServerRequest sm)
     {
         messages.add(sm);
     }

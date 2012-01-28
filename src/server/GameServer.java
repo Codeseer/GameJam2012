@@ -17,7 +17,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
-import shared.networking.ServerMessage;
+import shared.networking.ServerRequest;
 import shared.networking.UpdateRequest;
 
 /**
@@ -80,9 +80,9 @@ public final class GameServer {
                     connection.sendTCP(Main.gameServer.gameObjectManager.getUpdatedObjectsTCP());
                     connection.sendUDP(Main.gameServer.gameObjectManager.getUpdatedObjectsUDP());
                 }
-                else if(object instanceof ServerMessage)
+                else if(object instanceof ServerRequest)
                 {
-                    Main.gameServer.gameObjectManager.addMessage((ServerMessage)object);
+                    Main.gameServer.gameObjectManager.addMessage((ServerRequest)object);
                     serverMessage("Request Recieved from "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
                 }
             }

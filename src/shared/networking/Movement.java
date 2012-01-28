@@ -8,7 +8,7 @@ package shared.networking;
  * A simple class sent by the client to the server when the player wishes to move something.
  * @author Scott Adams
  */
-public class Movement extends ServerMessage 
+public class Movement extends ServerRequest 
 {
     public int destX,destY;
     

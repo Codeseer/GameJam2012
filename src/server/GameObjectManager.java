@@ -8,7 +8,7 @@ import server.ServerGameObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import shared.networking.GameObject;
-import shared.networking.ServerMessage;
+import shared.networking.ServerRequest;
 
 /**
  *
@@ -23,7 +23,7 @@ public class GameObjectManager {
     private long timeLastUpdate = 0;
     private ArrayList<GameObject> udpGameObjects;
     private ArrayList<GameObject> tcpGameObjects;
-    private ArrayList<ServerMessage> serverMessages;
+    private ArrayList<ServerRequest> serverMessages;
     
     public GameObjectManager()
     {        
@@ -138,8 +138,8 @@ public class GameObjectManager {
     }
     public void sendMessages()
     {
-        Iterator<ServerMessage> iterator = serverMessages.iterator();
-        ServerMessage tmpSM;
+        Iterator<ServerRequest> iterator = serverMessages.iterator();
+        ServerRequest tmpSM;
         for(;iterator.hasNext();)
         {
             tmpSM = iterator.next();
@@ -147,7 +147,7 @@ public class GameObjectManager {
         }
     }
     
-    public void addMessage(ServerMessage sm)
+    public void addMessage(ServerRequest sm)
     {
         serverMessages.add(sm);
     }

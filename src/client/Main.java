@@ -113,7 +113,7 @@ public class Main {
             if (Display.isVisible()) {
                 //processKeyboard();
                 //processMouse();
-                update();
+                //update();
                 //render();
             } else {
                 if (Display.isDirty()) {
@@ -130,8 +130,6 @@ public class Main {
     }
 
     public void update() {
-
         gamestateManager.update();
-
     }
 }

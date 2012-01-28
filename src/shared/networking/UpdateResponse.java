@@ -8,11 +8,7 @@ package shared.networking;
  *
  * @author Scott Adams
  */
-public abstract class ServerMessage 
+public class UpdateResponse 
 {
-    public int objectId;
-    public ServerMessage(int objectId)
-    {
-        this.objectId = objectId;
-    }
+    
 }
