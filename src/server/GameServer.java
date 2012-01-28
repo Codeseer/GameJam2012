@@ -69,7 +69,7 @@ public class GameServer {
             }
             public void connected(Connection connection)
             {
-                //Hello Nick
+                
             }
         });
     }
