@@ -66,6 +66,8 @@ public class Main {
     public Main() {
         try {
             gamestateManager = new GamestateManager();
+            networkManager = new NetworkManager();
+            videoManager = new VideoManager();
         } catch (MultipleInstanceException m) {}
 
     }
