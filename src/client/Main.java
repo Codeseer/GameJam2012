@@ -10,6 +10,7 @@ package client;
  */
 import client.game.GamestateManager;
 import client.graphics.VideoManager;
+import client.resources.ResourceManager;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
