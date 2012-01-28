@@ -53,6 +53,8 @@ public class Main {
       System.out.println("left  - Rotate left");
       System.out.println("right - Rotate right");
       System.out.println("esc   - Exit");
+      GameUpdater gu = new GameUpdater();
+      gu.start();
       main = new Main();
       main.create();
       main.run();

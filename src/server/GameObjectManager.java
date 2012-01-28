@@ -24,6 +24,9 @@ public class GameObjectManager {
     public GameObjectManager()
     {        
         maxObjectId = 0;
+        gameObjects = new ArrayList();
+        udpGameObjects = new ArrayList();
+        tcpGameObjects = new ArrayList();
     }
     
     /**

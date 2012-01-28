@@ -4,6 +4,7 @@
  */
 package server;
 
+import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -45,7 +46,7 @@ public final class GameServer {
         
         style_unimportant = server_output_pane.addStyle("Unimportant", null);
         StyleConstants.setForeground(style_unimportant, Color.yellow);
-        StyleConstants.setFontSize(style_unimportant, 8);
+        StyleConstants.setFontSize(style_unimportant, 12);
         
         //create a new GameObjectManager for the server
         gameObjectManager = new GameObjectManager();
@@ -53,6 +54,11 @@ public final class GameServer {
         updaterThreads = new ArrayList();
         //Create new kryonet server
         server = new Server();
+        
+        //Register classes with kryo
+        Kryo kryo = server.getKryo();
+        kryo.register(ArrayList.class);
+        
         server.start();
         try {
             server.bind(54555,54777);
@@ -75,25 +81,33 @@ public final class GameServer {
             @Override
             public void connected(Connection connection)
             {
-                UpdaterThread uThread = new UpdaterThread(connection);
+                UpdaterThread uThread = new UpdaterThread();
+                uThread.setConnection(connection);
                 uThread.start();
                 updaterThreads.add(uThread);
+                serverMessage("Connection Established from client: "+connection.getRemoteAddressTCP(),style_unimportant);
             }
             
+            @Override
             public void disconnected(Connection connection)
             {
+                                        serverMessage("Connection terminated from client: "+connection.getRemoteAddressTCP(),style_unimportant);
+
                 UpdaterThread tmpUThread;
                 Iterator<UpdaterThread> iterator = updaterThreads.iterator();
                 for(;iterator.hasNext();)
                 {
                     tmpUThread = iterator.next();
-                    if (tmpUThread.con.equals(connection))
+                    if (tmpUThread.con.getID()==connection.getID())
                     {
                         updaterThreads.remove(tmpUThread);
                         tmpUThread.updating = false;
                         tmpUThread = null;
+                        serverMessage("Connection terminated from client: "+tmpUThread.con.getRemoteAddressTCP(),style_unimportant);
+                        break;
                     }
                 }
+                
             }
         });
     }

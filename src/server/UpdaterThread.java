@@ -14,7 +14,7 @@ public class UpdaterThread extends Thread
 {
     public Connection con;
     public boolean updating;
-    public UpdaterThread(Connection connection)
+    public void setConnection(Connection connection)
     {
         con = connection;
         updating = true;
@@ -23,6 +23,7 @@ public class UpdaterThread extends Thread
     @Override
     public void run()
     {
+        System.out.println("run");
        //check ever 50 miliseconds for updated objects and send them to all the connected clients.
         while(updating)
         {
