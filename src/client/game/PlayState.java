@@ -4,6 +4,7 @@
  */
 package client.game;
 
+import client.graphics.VideoManager;
 import java.util.ArrayList;
 import shared.networking.UpdateResponse;
 
@@ -30,10 +31,11 @@ public class PlayState extends Gamestate {
         world = new GameWorld();
     }
 
+    @Override
     public void update(ArrayList<UpdateResponse> updates) {
         for (UpdateResponse u : updates)
         {
-            world.update(updates.gameObjects);
+            world.update(u.gameObjects);
         }
     }
 
@@ -44,7 +46,7 @@ public class PlayState extends Gamestate {
 
     @Override
     public void render() {
-        //
+        VideoManager.getVideoManager().render();
     }
     
 }

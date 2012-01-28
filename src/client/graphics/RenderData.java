@@ -6,6 +6,7 @@ package client.graphics;
 
 import client.resources.ResourceManager;
 import client.resources.Resource;
+import shared.networking.GameObject;
 
 /**
  *
@@ -15,6 +16,8 @@ public class RenderData {
     
     private Quad quad;
     private Resource resource;
+    private String currentFrame;
+    private GameObject object;
     
     public RenderData()
     {
@@ -26,17 +29,43 @@ public class RenderData {
         quad = q;
     }
     
-    public RenderData(String rName, String tName)
+    public RenderData(String rName, String tName, GameObject ref)
     {
         resource = ResourceManager.getResourceManager().getResource(rName);
         quad = new Quad(0, 0, resource.getTexture(tName).getImageWidth(),
                 resource.getTexture(tName).getImageHeight());
+        currentFrame = tName;
+        object = ref;
+    }
+    
+    public String getFrame()
+    {
+        return currentFrame;
     }
     
     public boolean isBlank()
     {
-        //return Resource == null;
-        return true;
+        return resource == null;
+    }
+    
+    public Resource getResource()
+    {
+        return resource;
+    }
+    
+    public float getX()
+    {
+        return (float)object.x;
+    }
+    
+    public float getY()
+    {
+        return (float)object.y;
+    }
+    
+    public Quad getQuad()
+    {
+        return quad;
     }
     
 }
