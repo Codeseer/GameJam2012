@@ -24,21 +24,24 @@ public class GameServer {
     private Server server;
     private StyledDocument server_output_doc;
     public GameObjectManager gameObjectManager;
+    public final Style style_error,style_fatal_error,style_success,style_unimportant;
+    
     public GameServer(JTextPane server_output_pane)
     {
         server_output_doc = server_output_pane.getStyledDocument();
         //setup all the diffrent styles for the server output pane.
-        Style style_error = server_output_pane.addStyle("Error", null);
+        
+        style_error = server_output_pane.addStyle("Error", null);
         StyleConstants.setForeground(style_error, Color.red);
         
-        final Style style_fatal_error = server_output_pane.addStyle("Fatal Error", style_error);
+        style_fatal_error = server_output_pane.addStyle("Fatal Error", style_error);
         StyleConstants.setBold(style_fatal_error, true);
         StyleConstants.setFontSize(style_fatal_error, 18);
         
-        Style style_success = server_output_pane.addStyle("Success", null);
+        style_success = server_output_pane.addStyle("Success", null);
         StyleConstants.setForeground(style_success, Color.green);
         
-        final Style style_unimportant = server_output_pane.addStyle("Unimportant", null);
+        style_unimportant = server_output_pane.addStyle("Unimportant", null);
         StyleConstants.setForeground(style_unimportant, Color.yellow);
         StyleConstants.setFontSize(style_unimportant, 8);
         
@@ -74,7 +77,7 @@ public class GameServer {
         });
     }
     
-    private void serverMessage(String message, Style style)
+    public void serverMessage(String message, Style style)
     {
         try {
         server_output_doc.insertString(server_output_doc.getLength(), message, style);

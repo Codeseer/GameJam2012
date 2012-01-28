@@ -12,11 +12,14 @@ import java.util.Iterator;
  * @author Scott Adams
  */
 public class GameObjectManager {
-    private ArrayList<GameObject> gameObjects;    
+    private ArrayList<GameObject> gameObjects;
     
     //manages ids so no object will ever have the same id.
     private int maxObjectId;
     
+    private long timeLastUpdate = 0;
+    private ArrayList<GameObject> udpGameObjects;
+    private ArrayList<GameObject> tcpGameObjects;
     public GameObjectManager()
     {        
         maxObjectId = 0;
@@ -66,4 +69,50 @@ public class GameObjectManager {
         }
         return false;
     }
+    
+    public ArrayList<GameObject> getUpdatedObjectsTCP()
+    {
+        if(System.currentTimeMillis()-timeLastUpdate>50)
+        {
+            ArrayList<GameObject> tcpArray = new ArrayList();
+            Iterator<GameObject> iterator = gameObjects.iterator();
+            GameObject tmpGObj;
+            for(;iterator.hasNext();)
+            {
+                tmpGObj = iterator.next();
+                if(tmpGObj.isUpdated()&&tmpGObj.isTCP())
+                {
+                        tcpArray.add(tmpGObj);
+                }
+            }
+            tcpGameObjects = tcpArray;
+            timeLastUpdate = System.currentTimeMillis();
+            return tcpArray;
+        }
+        else
+            return tcpGameObjects;
+    }
+    
+    public ArrayList<GameObject> getUpdatedObjectsUDP()
+    {
+        if(System.currentTimeMillis()-timeLastUpdate>50)
+        {
+            ArrayList<GameObject> udpArray = new ArrayList();
+            Iterator<GameObject> iterator = gameObjects.iterator();
+            GameObject tmpGObj;
+            for(;iterator.hasNext();)
+            {
+                tmpGObj = iterator.next();
+                if(tmpGObj.isUpdated()&&!tmpGObj.isTCP())
+                {
+                        udpArray.add(tmpGObj);
+                }
+            }
+            udpGameObjects = udpArray;
+            timeLastUpdate = System.currentTimeMillis();
+            return udpArray;
+        }
+        else
+            return udpGameObjects;
+    }    
 }

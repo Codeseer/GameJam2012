@@ -11,6 +11,25 @@ package shared;
 public class GameObject {
     public int x,y;
     protected int objectId;
+    private boolean TCP;
+    private boolean updated;
+
+    public boolean isTCP() {
+        return TCP;
+    }
+
+    public void setTCP(boolean TCP) {
+        this.TCP = TCP;
+    }
+
+    public boolean isUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(boolean updated) {
+        this.updated = updated;
+    }
+
     public GameObject()
     {}
     
