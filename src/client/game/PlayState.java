@@ -4,6 +4,7 @@
  */
 package client.game;
 
+import client.NetworkManager;
 import client.graphics.VideoManager;
 import java.util.ArrayList;
 import shared.networking.UpdateResponse;
@@ -33,6 +34,7 @@ public class PlayState extends Gamestate {
 
     @Override
     public void update(ArrayList<UpdateResponse> updates) {
+        NetworkManager.getNetworkManager().addUpdateRequest();
         for (UpdateResponse u : updates)
         {
             world.update(u.gameObjects);

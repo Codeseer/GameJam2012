@@ -17,6 +17,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import shared.networking.PlayerObject;
 import shared.networking.ServerRequest;
 import shared.networking.UpdateRequest;
 import shared.networking.UpdateResponse;
@@ -83,6 +84,7 @@ public final class GameServer {
                 {
                     connection.sendTCP(new UpdateResponse(Main.gameServer.gameObjectManager.getUpdatedObjectsTCP()));
                     connection.sendUDP(new UpdateResponse(Main.gameServer.gameObjectManager.getUpdatedObjectsUDP()));
+                    serverMessage("Request Recieved from "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
                 }
                 else if(object instanceof ServerRequest)
                 {
@@ -93,6 +95,10 @@ public final class GameServer {
             @Override
             public void connected(Connection connection)
             {
+                PlayerEntity newPlayer = new PlayerEntity();
+                newPlayer.setGameObject(new PlayerObject());
+                newPlayer.setUpdated(true);
+                Main.gameServer.gameObjectManager.add(newPlayer);
                 serverMessage("Connection Established from client "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
             }
             

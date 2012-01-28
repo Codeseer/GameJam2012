@@ -13,7 +13,7 @@ import shared.networking.ServerRequest;
  * @author Scott Adams
  */
 public class GameEntity{
-    private boolean TCP;
+    private boolean TCP = true;
     private boolean updated;
     private GameObject gameObject;
     private ArrayList<ServerRequest> messages;
