@@ -4,10 +4,10 @@
  */
 package client.game;
 
-import java.util.Stack;
-import java.util.ArrayList;
-import shared.networking.GameObject;
 import client.MultipleInstanceException;
+import java.util.ArrayList;
+import java.util.Stack;
+import shared.networking.GameObject;
 
 /**
  *
@@ -42,6 +42,11 @@ public final class GamestateManager {
     public void popGamestate()
     {
         gamestateStack.pop().onPop();
+    }
+    
+    public void addToUpdateQueue(ArrayList<GameObject> a)
+    {
+        updateQueue.add(a);
     }
     
     public void update()

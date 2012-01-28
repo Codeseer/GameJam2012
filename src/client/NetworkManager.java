@@ -4,12 +4,14 @@
  */
 package client;
 
+import client.game.GamestateManager;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import java.io.IOException;
 import java.util.ArrayList;
+import shared.networking.GameObject;
 import shared.networking.ServerMessage;
 import shared.networking.UpdateRequest;
 
@@ -62,7 +64,11 @@ public final class NetworkManager extends Thread {
             @Override
             public void received(Connection c, Object o)
             {
-                
+                if (o instanceof ArrayList)
+                {
+                    GamestateManager.getGamestateManager().addToUpdateQueue(
+                            ((ArrayList<GameObject>)o));
+                }
             }
         });
     }
