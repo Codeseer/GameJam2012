@@ -10,4 +10,26 @@ package client.game;
  */
 public class GameWorld {
     
+    
+    
+    public GameWorld()
+    {
+        
+    }
+    
+    public void update()
+    {
+        
+    }
+    
+    public void prerender()
+    {
+        
+    }
+    
+    public void render()
+    {
+        
+    }
+    
 }

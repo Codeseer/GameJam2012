@@ -9,35 +9,37 @@ package client.game;
  * @author Syynth
  */
 public class PlayState extends Gamestate {
+    
+    private GameWorld world;
 
     @Override
     public void onPush() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // tell resource loader to load resources
     }
 
     @Override
     public void onPop() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // tell resource loader to unload resources
     }
 
     @Override
     public void create() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        world = new GameWorld();
     }
 
     @Override
     public void update() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        world.update();
     }
 
     @Override
     public void prerender() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        world.prerender();
     }
 
     @Override
     public void render() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        world.render();
     }
     
 }
