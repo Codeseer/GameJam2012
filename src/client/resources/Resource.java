@@ -4,9 +4,15 @@
  */
 package client.resources;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
 
 /**
  *
@@ -16,6 +22,8 @@ public class Resource
 {
     private HashMap textures;
     private HashMap sounds;
+    private HashMap rTextures;
+    private HashMap rSounds;
     private String name;
     
     public Resource(String name)
@@ -23,34 +31,72 @@ public class Resource
         this.name = name;
         textures = new HashMap();
         sounds = new HashMap();
+        rTextures = new HashMap();
+        rSounds = new HashMap();
     }
     public String getName() {
         return name;
     }
-    public void addTexture(String name,Texture T)
+    public void addTexture(String name, InputStream resourceStream)
     {
-        textures.put(name, T);
+        rTextures.put(name, resourceStream);
     }
     public Texture getTexture(String name)
     {
-        return (Texture)textures.get(name);
+        if(textures.containsKey(name))
+        {
+            return (Texture)textures.get(name);
+        }
+        else
+        {
+            if(rTextures.containsKey(name))
+            {
+                InputStream tmpResource = (InputStream)rTextures.get(name);
+                try {
+                    Texture newTexture = TextureLoader.getTexture(name,tmpResource);
+                    textures.put(name,newTexture);
+                    return newTexture;
+                } catch (IOException ex) {
+                    System.err.println("Could not load "+name+" texture");
+                }
+            }
+        }
+        return null;
     }
     
-    public void addSound(String name,Audio A)
+    public void addSound(String name,InputStream resourceStream)
     {
-        sounds.put(name, A);
+        rSounds.put(name, resourceStream);
     }
     public Audio getSound(String name)
     {
-        return (Audio)sounds.get(name);
+        if(sounds.containsKey(name))
+        {
+            return (Audio)sounds.get(name);
+        }
+        else
+        {
+            if(rSounds.containsKey(name))
+            {
+                InputStream tmpResource = (InputStream)rSounds.get(name);
+                try {
+                    Audio newSound = AudioLoader.getAudio(name,tmpResource);
+                    sounds.put(name,newSound);
+                    return newSound;
+                } catch (IOException ex) {
+                    System.err.println("Could not load "+name+" audio");
+                }
+            }
+        }
+        return null;
     }
     
-    public HashMap getAllSounds()
+    public HashMap getAllLoadedSounds()
     {
         return sounds;
     }
     
-    public HashMap getAllTextures()
+    public HashMap getAllLoadedTextures()
     {
         return textures;
     }

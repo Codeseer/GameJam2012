@@ -43,9 +43,9 @@ public class Main {
         Main main = null;
 
         // create client singletons
+        ResourceManager resourceManager = new ResourceManager();
         InputManager input = null;  // to be impl.
         NetworkManager networkManager = null;   // to be impl.
-        ResourceManager resourceManager = null; // to be impl.
         GamestateManager gamestateManager = null;   // to be impl.
         AudioManager audioManager = null;   // to be impl.
         VideoManager videoManager = null;   // to be impl.
@@ -93,34 +93,9 @@ public class Main {
         Display.destroy();
     }
 
-    /*
-     * public void initGL() { //2D Initialization
-     * glClearColor(0.0f,0.0f,0.0f,0.0f); glDisable(GL_DEPTH_TEST);
-     * glDisable(GL_LIGHTING); }
-     *
-     * public void processKeyboard() { //Square's Size
-     * //if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) { //} }
-     *
-     * public void processMouse() { //squareX = Mouse.getX(); }
-     *
-     * public void render() { glClear(GL_COLOR_BUFFER_BIT); glLoadIdentity();
-     *
-     * //Draw a basic square glTranslatef(squareX,squareY,0.0f);
-     * glRotatef(squareZ,0.0f,0.0f,1.0f); glTranslatef(-(squareSize >>
-     * 1),-(squareSize >> 1),0.0f); glColor3f(0.0f,0.5f,0.5f);
-     * glBegin(GL_QUADS); glTexCoord2f(0.0f,0.0f); glVertex2f(0.0f,0.0f);
-     * glTexCoord2f(1.0f,0.0f); glVertex2f(squareSize,0.0f);
-     * glTexCoord2f(1.0f,1.0f); glVertex2f(squareSize,squareSize);
-     * glTexCoord2f(0.0f,1.0f); glVertex2f(0.0f,squareSize); glEnd(); }
-     *
-     * public void resizeGL() { //2D Scene
-     * glViewport(0,0,DISPLAY_WIDTH,DISPLAY_HEIGHT);
-     *
-     * glMatrixMode(GL_PROJECTION); glLoadIdentity();
-     * gluOrtho2D(0.0f,DISPLAY_WIDTH,0.0f,DISPLAY_HEIGHT); glPushMatrix();
-     *
-     * glMatrixMode(GL_MODELVIEW); glLoadIdentity(); glPushMatrix(); }
-     */
+    
+      public void initGL() { //2D Initialization
+      }
     public void run() {
         while (!Display.isCloseRequested() && !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
             if (Display.isVisible()) {
