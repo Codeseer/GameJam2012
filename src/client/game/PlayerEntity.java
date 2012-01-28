@@ -17,7 +17,7 @@ public class PlayerEntity extends GameEntity {
     public PlayerEntity(PlayerObject p)
     {
         super(p);
-        health = p.health;
+        health = p.getHealth();
     }
     
 }
