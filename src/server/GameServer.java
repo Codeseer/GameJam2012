@@ -9,6 +9,8 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import java.awt.Color;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
@@ -20,11 +22,12 @@ import shared.GameObjectManager;
  *
  * @author Scott Adams
  */
-public class GameServer {
+public final class GameServer {
     private Server server;
     private StyledDocument server_output_doc;
-    public GameObjectManager gameObjectManager;
+    public final GameObjectManager gameObjectManager;
     public final Style style_error,style_fatal_error,style_success,style_unimportant;
+    private ArrayList<UpdaterThread> updaterThreads;
     
     public GameServer(JTextPane server_output_pane)
     {
@@ -48,7 +51,7 @@ public class GameServer {
         //create a new GameObjectManager for the server
         gameObjectManager = new GameObjectManager();
         
-        
+        updaterThreads = new ArrayList();
         //Create new kryonet server
         server = new Server();
         server.start();
@@ -70,9 +73,28 @@ public class GameServer {
                 
                 serverMessage("position response sent\n\t size "+numBytesSent+" bytes",style_unimportant);
             }
+            @Override
             public void connected(Connection connection)
             {
-                
+                UpdaterThread uThread = new UpdaterThread(connection);
+                uThread.start();
+                updaterThreads.add(uThread);
+            }
+            
+            public void disconnected(Connection connection)
+            {
+                UpdaterThread tmpUThread;
+                Iterator<UpdaterThread> iterator = updaterThreads.iterator();
+                for(;iterator.hasNext();)
+                {
+                    tmpUThread = iterator.next();
+                    if (tmpUThread.con.equals(connection))
+                    {
+                        updaterThreads.remove(tmpUThread);
+                        tmpUThread.updating = false;
+                        tmpUThread = null;
+                    }
+                }
             }
         });
     }
