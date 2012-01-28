@@ -31,6 +31,7 @@ public class GameObjectManager {
         gameObjects = new ArrayList();
         udpGameObjects = new ArrayList();
         tcpGameObjects = new ArrayList();
+        serverMessages = new ArrayList();
     }
     
     /**

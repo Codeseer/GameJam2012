@@ -18,6 +18,7 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import shared.networking.ServerMessage;
+import shared.networking.UpdateRequest;
 
 /**
  *
@@ -29,7 +30,6 @@ public final class GameServer {
     public final GameObjectManager gameObjectManager;
     private GameServerUpdater gameServerUpdater;
     public final Style style_error,style_fatal_error,style_success,style_unimportant;
-    private ArrayList<UpdaterThread> updaterThreads;
     
     public GameServer(JTextPane server_output_pane)
     {
@@ -55,7 +55,6 @@ public final class GameServer {
         gameServerUpdater = new GameServerUpdater();
         gameServerUpdater.setGameManagerObject(gameObjectManager);
         gameServerUpdater.start();
-        updaterThreads = new ArrayList();
         //Create new kryonet server
         server = new Server();
         
@@ -76,43 +75,27 @@ public final class GameServer {
             @Override
             public void received(Connection connection, Object object)
             {
-                if(object instanceof ServerMessage)
+                if(object instanceof UpdateRequest)
+                {
+                    connection.sendTCP(Main.gameServer.gameObjectManager.getUpdatedObjectsUDP());
+                    connection.sendUDP(Main.gameServer.gameObjectManager.getUpdatedObjectsTCP());
+                }
+                else if(object instanceof ServerMessage)
                 {
                     Main.gameServer.gameObjectManager.addMessage((ServerMessage)object);
+                    serverMessage("Request Recieved from "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
                 }
-                
-                serverMessage("Request Recieved from "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
             }
             @Override
             public void connected(Connection connection)
             {
-                UpdaterThread uThread = new UpdaterThread();
-                uThread.setConnection(connection);
-                uThread.start();
-                updaterThreads.add(uThread);
-                serverMessage("Connection Established from client\n",style_unimportant);
+                serverMessage("Connection Established from client "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
             }
             
             @Override
             public void disconnected(Connection connection)
             {
-                                        serverMessage("Connection terminated from client: "+connection.getRemoteAddressTCP(),style_unimportant);
-
-                UpdaterThread tmpUThread;
-                Iterator<UpdaterThread> iterator = updaterThreads.iterator();
-                for(;iterator.hasNext();)
-                {
-                    tmpUThread = iterator.next();
-                    if (tmpUThread.con.getID()==connection.getID())
-                    {
-                        updaterThreads.remove(tmpUThread);
-                        tmpUThread.updating = false;
-                        tmpUThread = null;
-                        serverMessage("Connection terminated from client: "+tmpUThread.con.getRemoteAddressTCP(),style_unimportant);
-                        break;
-                    }
-                }
-                
+                serverMessage("Connection terminated from client.\n",style_unimportant);
             }
         });
     }
