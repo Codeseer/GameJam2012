@@ -9,5 +9,5 @@ package client.graphics;
  * @author Syynth
  */
 public class RenderData {
-    
+     
 }
