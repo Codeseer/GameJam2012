@@ -8,6 +8,6 @@ package client;
  *
  * @author Syynth
  */
-public interface ConnectionSuccessful extends Callback {
-    public void ConnectedSuccessfully();
+public interface Callback {
+    
 }
