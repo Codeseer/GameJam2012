@@ -11,6 +11,9 @@ package client;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.*;
 
+import client.game.GamestateManager;
+import client.graphics.VideoManager;
+
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -30,10 +33,6 @@ public class Main {
   public static final int DISPLAY_WIDTH = 640;
   public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
-  private int squareSize;
-  private int squareX;
-  private int squareY;
-  private int squareZ;
 
   static {
     try {
@@ -46,16 +45,17 @@ public class Main {
 
   public static void main() {
     Main main = null;
-    GameUpdater gu = null;
+    
+    // create client singletons
+    InputManager input = null;  // to be impl.
+    NetworkManager networkManager = null;   // to be impl.
+    ResourceManager resourceManager = null; // to be impl.
+    GamestateManager gamestateManager = null;   // to be impl.
+    AudioManager audioManager = null;   // to be impl.
+    VideoManager videoManager = null;   // to be impl.
+    
     try {
-      System.out.println("Keys:");
-      System.out.println("down  - Shrink");
-      System.out.println("up    - Grow");
-      System.out.println("left  - Rotate left");
-      System.out.println("right - Rotate right");
-      System.out.println("esc   - Exit");
-      gu = new GameUpdater();
-      gu.start();
+      System.out.println("Welcome to bloopsClient v0.0");
       main = new Main();
       main.create();
       main.run();
@@ -66,17 +66,11 @@ public class Main {
     finally {
       if(main != null) {
         main.destroy();
-        gu.client.close();
-        gu.yield();
       }
     }
   }
 
   public Main() {
-    squareSize = 100;
-    squareX = 0;
-    squareY = 0;
-    squareZ = 0;
   }
 
   public void create() throws LWJGLException {
@@ -94,8 +88,8 @@ public class Main {
     Mouse.create();
 
     //OpenGL
-    initGL();
-    resizeGL();
+    //initGL();
+    //resizeGL();
   }
 
   public void destroy() {
@@ -105,7 +99,7 @@ public class Main {
     Display.destroy();
   }
 
-  public void initGL() {
+ /* public void initGL() {
     //2D Initialization
     glClearColor(0.0f,0.0f,0.0f,0.0f);
     glDisable(GL_DEPTH_TEST);
@@ -114,25 +108,12 @@ public class Main {
 
   public void processKeyboard() {
     //Square's Size
-    if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-      --squareSize;
-    }
-    if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-      ++squareSize;
-    }
-
-    //Square's Z
-    if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-      ++squareZ;
-    }
-    if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-      --squareZ;
-    }
+    //if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
+    //}
   }
 
   public void processMouse() {
-    squareX = Mouse.getX();
-    squareY = Mouse.getY();
+    //squareX = Mouse.getX();
   }
 
   public void render() {
@@ -164,19 +145,19 @@ public class Main {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glPushMatrix();
-  }
+  }*/
 
   public void run() {
     while(!Display.isCloseRequested() && !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
       if(Display.isVisible()) {
-        processKeyboard();
-        processMouse();
+        //processKeyboard();
+        //processMouse();
         update();
-        render();
+        //render();
       }
       else {
         if(Display.isDirty()) {
-          render();
+          //render();
         }
         try {
           Thread.sleep(100);
@@ -190,12 +171,7 @@ public class Main {
   }
 
   public void update() {
-    if(squareSize < 5) {
-      squareSize = 5;
-    }
-    else if(squareSize >= DISPLAY_HEIGHT) {
-      squareSize = DISPLAY_HEIGHT;
-    }
+
   }
 }
 

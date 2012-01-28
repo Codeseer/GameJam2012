@@ -19,13 +19,17 @@ public class GameUpdater extends Thread
     @Override
     public void run()
     {
-        client = new Client();
+        /*
+         * THIS IS HOW YOU CONNECT TO SERVER
+         * 
+         * client = new Client();
         Kryo kryo = client.getKryo();
         kryo.register(ArrayList.class);
         client.start();
         try {
             client.connect(5000, "localhost", 54555,54777);
         } catch (IOException ex) {}
+        client.addListener();*/
         
     }
 }
