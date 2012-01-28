@@ -15,10 +15,11 @@ import java.util.ArrayList;
  */
 public class GameUpdater extends Thread
 {
+    public Client client;
     @Override
     public void run()
     {
-        Client client = new Client();
+        client = new Client();
         Kryo kryo = client.getKryo();
         kryo.register(ArrayList.class);
         client.start();

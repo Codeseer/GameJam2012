@@ -46,6 +46,7 @@ public class Main {
 
   public static void main() {
     Main main = null;
+    GameUpdater gu = null;
     try {
       System.out.println("Keys:");
       System.out.println("down  - Shrink");
@@ -53,7 +54,7 @@ public class Main {
       System.out.println("left  - Rotate left");
       System.out.println("right - Rotate right");
       System.out.println("esc   - Exit");
-      GameUpdater gu = new GameUpdater();
+      gu = new GameUpdater();
       gu.start();
       main = new Main();
       main.create();
@@ -65,6 +66,8 @@ public class Main {
     finally {
       if(main != null) {
         main.destroy();
+        gu.client.close();
+        gu.yield();
       }
     }
   }

@@ -64,7 +64,7 @@ public final class GameServer {
             server.bind(54555,54777);
                 serverMessage("Successful started server on port 54555(TCP) and 54777(UDP)\n",style_success);
         } catch (IOException ex) {
-            serverMessage("Could not connect on port 54555(TCP) or 54777(UDP)",style_fatal_error);
+            serverMessage("Could not connect on port 54555(TCP) or 54777(UDP)\n",style_fatal_error);
         }
         
         server.addListener(new Listener(){
@@ -73,10 +73,8 @@ public final class GameServer {
             public void received(Connection connection, Object object)
             {
                 RequestParser rParser = new RequestParser(object);
-                
-                int numBytesSent = connection.sendTCP(rParser.getResponse());
-                
-                serverMessage("position response sent\n\t size "+numBytesSent+" bytes",style_unimportant);
+                                
+                serverMessage("Request Recieved from "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
             }
             @Override
             public void connected(Connection connection)
@@ -85,7 +83,7 @@ public final class GameServer {
                 uThread.setConnection(connection);
                 uThread.start();
                 updaterThreads.add(uThread);
-                serverMessage("Connection Established from client: "+connection.getRemoteAddressTCP(),style_unimportant);
+                serverMessage("Connection Established from client\n",style_unimportant);
             }
             
             @Override
