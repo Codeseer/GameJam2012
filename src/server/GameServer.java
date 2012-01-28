@@ -9,16 +9,12 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import java.awt.Color;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import shared.GameObjectManager;
-import shared.networking.Movement;
-import shared.networking.Positioning;
 
 /**
  *
@@ -35,14 +31,14 @@ public class GameServer {
         Style style_error = server_output_pane.addStyle("Error", null);
         StyleConstants.setForeground(style_error, Color.red);
         
-        Style style_fatal_error = server_output_pane.addStyle("Fatal Error", style_error);
+        final Style style_fatal_error = server_output_pane.addStyle("Fatal Error", style_error);
         StyleConstants.setBold(style_fatal_error, true);
         StyleConstants.setFontSize(style_fatal_error, 18);
         
         Style style_success = server_output_pane.addStyle("Success", null);
         StyleConstants.setForeground(style_success, Color.green);
         
-        Style style_unimportant = server_output_pane.addStyle("Unimportant", null);
+        final Style style_unimportant = server_output_pane.addStyle("Unimportant", null);
         StyleConstants.setForeground(style_unimportant, Color.yellow);
         StyleConstants.setFontSize(style_unimportant, 8);
         
@@ -55,14 +51,9 @@ public class GameServer {
         server.start();
         try {
             server.bind(54555,54777);
-            try {
-                server_output_doc.insertString(server_output_doc.getLength(), "Successful started server on port 54555(TCP) and 54777(UDP)\n", style_success);
-            } catch (BadLocationException ex1) {}
+                serverMessage("Successful started server on port 54555(TCP) and 54777(UDP)\n",style_success);
         } catch (IOException ex) {
-            try {
-                server_output_doc.insertString(server_output_doc.getLength(), "Could not connect on port 54555(TCP) or 54777(UDP)\n", style_fatal_error);
-            } catch (BadLocationException ex1) {}
-            System.err.println("Could not connect on port 54555(TCP) or 54777(UDP)");
+            serverMessage("Could not connect on port 54555(TCP) or 54777(UDP)",style_fatal_error);
         }
         
         server.addListener(new Listener(){
@@ -70,12 +61,24 @@ public class GameServer {
             @Override
             public void received(Connection connection, Object object)
             {
-                // if the user has sent a movement request.
-                if(object instanceof Movement)
-                {
-                    
-                }
+                RequestParser rParser = new RequestParser(object);
+                
+                int numBytesSent = connection.sendTCP(rParser.getResponse());
+                
+                serverMessage("position response sent\n\t size "+numBytesSent+" bytes",style_unimportant);
+            }
+            public void connected(Connection connection)
+            {
+                //Hello Nick
             }
         });
-    }   
+    }
+    
+    private void serverMessage(String message, Style style)
+    {
+        try {
+        server_output_doc.insertString(server_output_doc.getLength(), message, style);
+        } catch (BadLocationException ex1) {}
+        System.out.println(message);
+    }
 }

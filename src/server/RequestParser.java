@@ -6,6 +6,7 @@ package server;
 
 import shared.GameObject;
 import shared.networking.Movement;
+import shared.networking.Positioning;
 
 /**
  *This class is sent the clients request and then decides what to return as a response(if anything)
@@ -23,10 +24,10 @@ public class RequestParser {
     
     private void movementRequest(Movement movement)
     {        
-        GameObject gObj= Main.gameServer.gameObjectManager.get(movement.objectId);
+        GameObject gObj = Main.gameServer.gameObjectManager.get(movement.objectId);
         gObj.x = movement.destX;
         gObj.y = movement.destY;
-        
+        response = new Positioning(gObj.x,gObj.y,gObj.getObjectId());
     }
     
     

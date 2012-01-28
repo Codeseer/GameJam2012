@@ -10,7 +10,7 @@ package shared;
  */
 public class GameObject {
     public int x,y;
-    private int objectId;
+    protected int objectId;
     public GameObject()
     {}
     
