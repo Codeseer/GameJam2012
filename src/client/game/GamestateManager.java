@@ -52,9 +52,12 @@ public final class GamestateManager {
     
     public void update()
     {
-        gamestateStack.peek().update();
-        gamestateStack.peek().prerender();
-        gamestateStack.peek().render();
+        if (!gamestateStack.empty())
+        {
+            gamestateStack.peek().update();
+            gamestateStack.peek().prerender();
+            gamestateStack.peek().render();
+        }
     }
     
     public static GamestateManager getGamestateManager()

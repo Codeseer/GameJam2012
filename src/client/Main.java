@@ -53,7 +53,9 @@ public class Main {
             System.out.println("Welcome to bloopsClient v0.0");
             main = new Main();
             main.create();
+            System.out.println("LWJGL contexts created");
             main.run();
+            System.out.println("Main has finished running");
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, ex.toString(), ex);
         } finally {
@@ -68,12 +70,13 @@ public class Main {
             gamestateManager = new GamestateManager();
             networkManager = new NetworkManager();
             videoManager = new VideoManager();
-        } catch (MultipleInstanceException m) {}
+        } catch (MultipleInstanceException m) { System.out.println("Oh poo."); }
 
     }
 
     public void create() throws LWJGLException {
         //Display
+        
         Display.setDisplayMode(new DisplayMode(DISPLAY_WIDTH, DISPLAY_HEIGHT));
         Display.setFullscreen(false);
         Display.setTitle("Hello LWJGL World!");
