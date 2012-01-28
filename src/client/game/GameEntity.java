@@ -15,8 +15,13 @@ public class GameEntity {
     
     public GameObject object;
     public RenderData renderData;
-    private boolean visible;
-    private int objectId;
+    protected boolean visible;
+    protected int objectId;
+    
+    public GameEntity()
+    {
+        
+    }
     
     public GameEntity(GameObject g)
     {
