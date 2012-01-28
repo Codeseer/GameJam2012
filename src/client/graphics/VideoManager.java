@@ -8,6 +8,6 @@ package client.graphics;
  *
  * @author Syynth
  */
-public class VideoManager {
+public final class VideoManager {
     
 }

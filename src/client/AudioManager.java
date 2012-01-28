@@ -8,6 +8,6 @@ package client;
  *
  * @author Syynth
  */
-public class AudioManager {
+public final class AudioManager {
     
 }

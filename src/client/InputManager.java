@@ -11,7 +11,7 @@ import org.lwjgl.input.Mouse;
  *
  * @author Syynth
  */
-public class InputManager {
+public final class InputManager {
     
     
     

@@ -14,6 +14,8 @@ public abstract class Gamestate {
     public abstract void onPop();
     public abstract void create();
     public abstract void update();
+    
+    public abstract void prerender();
     public abstract void render();
     
 }

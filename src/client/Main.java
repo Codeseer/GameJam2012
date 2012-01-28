@@ -30,6 +30,13 @@ public class Main {
     public static final int DISPLAY_HEIGHT = 480;
     public static final int DISPLAY_WIDTH = 640;
     public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+    // create client singletons
+    static InputManager input = null;  // to be impl.
+    static NetworkManager networkManager = null;   // to be impl.
+    static ResourceManager resourceManager = null; // to be impl.
+    static GamestateManager gamestateManager = null;   // to be impl.
+    static AudioManager audioManager = null;   // to be impl.
+    static VideoManager videoManager = null;   // to be impl.
 
     static {
         try {
@@ -41,14 +48,6 @@ public class Main {
 
     public static void main() {
         Main main = null;
-
-        // create client singletons
-        InputManager input = null;  // to be impl.
-        NetworkManager networkManager = null;   // to be impl.
-        ResourceManager resourceManager = null; // to be impl.
-        GamestateManager gamestateManager = null;   // to be impl.
-        AudioManager audioManager = null;   // to be impl.
-        VideoManager videoManager = null;   // to be impl.
 
         try {
             System.out.println("Welcome to bloopsClient v0.0");
@@ -65,6 +64,9 @@ public class Main {
     }
 
     public Main() {
+
+        gamestateManager = new GamestateManager();
+
     }
 
     public void create() throws LWJGLException {
@@ -122,6 +124,7 @@ public class Main {
      * glMatrixMode(GL_MODELVIEW); glLoadIdentity(); glPushMatrix(); }
      */
     public void run() {
+
         while (!Display.isCloseRequested() && !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
             if (Display.isVisible()) {
                 //processKeyboard();
@@ -143,5 +146,8 @@ public class Main {
     }
 
     public void update() {
+
+        gamestateManager.update();
+
     }
 }

@@ -34,5 +34,10 @@ public class MenuState extends Gamestate {
     public void render() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public void prerender() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 }

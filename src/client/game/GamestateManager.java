@@ -10,9 +10,9 @@ import java.util.Stack;
  *
  * @author Syynth
  */
-public class GamestateManager {
+public final class GamestateManager {
     
-    static Stack<Gamestate> gamestateStack;
+    private static Stack<Gamestate> gamestateStack;
     
     public GamestateManager()
     {
@@ -21,16 +21,23 @@ public class GamestateManager {
     
     public void start()
     {
-        gamestateStack.push(null);
+        gamestateStack.push(new MenuState());
     }
     
-    public void run()
+    public void pushGamestate(Gamestate gamestate)
     {
-        
+        gamestateStack.push(gamestate).onPush();
     }
     
-    public static void add(Gamestate gamestate)
+    public void popGamestate()
     {
-        
+        gamestateStack.pop().onPop();
+    }
+    
+    public void update()
+    {
+        gamestateStack.peek().update();
+        gamestateStack.peek().prerender();
+        gamestateStack.peek().render();
     }
 }
