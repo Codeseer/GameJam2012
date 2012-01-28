@@ -12,7 +12,7 @@ import shared.networking.ServerMessage;
  *
  * @author Scott Adams
  */
-public class ServerGameObject extends GameObject{
+public class GameEntity extends GameObject{
     private boolean TCP;
     private boolean updated;
     private ArrayList<ServerMessage> messages;

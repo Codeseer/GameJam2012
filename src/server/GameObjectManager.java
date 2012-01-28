@@ -4,7 +4,6 @@
  */
 package server;
 
-import server.ServerGameObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import shared.networking.GameObject;
@@ -15,7 +14,7 @@ import shared.networking.ServerMessage;
  * @author Scott Adams
  */
 public class GameObjectManager {
-    private ArrayList<ServerGameObject> gameObjects;
+    private ArrayList<GameEntity> gameObjects;
     
     //manages ids so no object will ever have the same id.
     private int maxObjectId;
@@ -36,24 +35,24 @@ public class GameObjectManager {
     
     /**
      * Assigns a unique Id to the game object and adds it to the collection of game objects.
-     * @param gameObject the ServerGameObject to add to the collection of game objects
+     * @param gameObject the GameEntity to add to the collection of game objects
      */
-    public void add(ServerGameObject gameObject)
+    public void add(GameEntity gameObject)
     {
         gameObject.setObjectId(maxObjectId);
         gameObjects.add(gameObject);
         maxObjectId++;
     }
     
-    public boolean remove(ServerGameObject gameObject)
+    public boolean remove(GameEntity gameObject)
     {
         return gameObjects.remove(gameObject);
     }
     
-    public ServerGameObject get(int objectId)
+    public GameEntity get(int objectId)
     {
-        Iterator<ServerGameObject> iterator = gameObjects.iterator();
-        ServerGameObject tmpObj;
+        Iterator<GameEntity> iterator = gameObjects.iterator();
+        GameEntity tmpObj;
         for(;iterator.hasNext();)
         {
             tmpObj = iterator.next();
@@ -64,13 +63,13 @@ public class GameObjectManager {
     }
     
     /**
-     * Checks to see if an objectId corresponds to a ServerGameObject
+     * Checks to see if an objectId corresponds to a GameEntity
      * @param objectId the id to check for
      * @return
      */
     public boolean checkForId(int objectId)
     {
-        Iterator<ServerGameObject> iterator = gameObjects.iterator();
+        Iterator<GameEntity> iterator = gameObjects.iterator();
         for(;iterator.hasNext();)
         {
             if(iterator.next().getObjectId()==objectId)
@@ -84,8 +83,8 @@ public class GameObjectManager {
         if(System.currentTimeMillis()-timeLastUpdate>50)
         {
             ArrayList<GameObject> tcpArray = new ArrayList();
-            Iterator<ServerGameObject> iterator = gameObjects.iterator();
-            ServerGameObject tmpGObj;
+            Iterator<GameEntity> iterator = gameObjects.iterator();
+            GameEntity tmpGObj;
             for(;iterator.hasNext();)
             {
                 tmpGObj = iterator.next();
@@ -108,8 +107,8 @@ public class GameObjectManager {
         if(System.currentTimeMillis()-timeLastUpdate>50)
         {
             ArrayList<GameObject> udpArray = new ArrayList();
-            Iterator<ServerGameObject> iterator = gameObjects.iterator();
-            ServerGameObject tmpGObj;
+            Iterator<GameEntity> iterator = gameObjects.iterator();
+            GameEntity tmpGObj;
             for(;iterator.hasNext();)
             {
                 tmpGObj = iterator.next();
@@ -128,8 +127,8 @@ public class GameObjectManager {
     }
     public void updateAll()
     {
-        Iterator<ServerGameObject> iterator = gameObjects.iterator();
-        ServerGameObject tmpGObj;
+        Iterator<GameEntity> iterator = gameObjects.iterator();
+        GameEntity tmpGObj;
         for(;iterator.hasNext();)
         {
             tmpGObj = iterator.next();
