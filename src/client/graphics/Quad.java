@@ -2,13 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package client;
+package client.graphics;
 
 /**
  *
  * @author Syynth
  */
 public class Quad {
+    
     public double x1;
     public double y1;
     public double x2;

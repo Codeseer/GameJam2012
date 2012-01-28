@@ -6,26 +6,17 @@ package server;
 
 import java.util.ArrayList;
 import shared.networking.GameObject;
-import shared.networking.ServerRequest;
+import shared.networking.ServerMessage;
 
 /**
  *
  * @author Scott Adams
  */
-public class ServerGameObject{
+public class GameEntity extends GameObject{
     private boolean TCP;
     private boolean updated;
-    private GameObject gameObject;
-    private ArrayList<ServerRequest> messages;
+    private ArrayList<ServerMessage> messages;
 
-    public GameObject getGameObject() {
-    return gameObject;
-    }
-
-    public void setGameObject(GameObject gameObject) {
-        this.gameObject = gameObject;
-    }
-    
     public boolean isTCP() {
         return TCP;
     }
@@ -42,7 +33,7 @@ public class ServerGameObject{
         this.updated = updated;
     }  
     
-    public void addMessage(ServerRequest sm)
+    public void addMessage(ServerMessage sm)
     {
         messages.add(sm);
     }

@@ -4,10 +4,10 @@
  */
 package client.game;
 
-import java.util.Stack;
-import java.util.ArrayList;
-import shared.networking.GameObject;
 import client.MultipleInstanceException;
+import java.util.ArrayList;
+import java.util.Stack;
+import shared.networking.GameObject;
 
 /**
  *
@@ -16,7 +16,7 @@ import client.MultipleInstanceException;
 public final class GamestateManager {
     
     private static Stack<Gamestate> gamestateStack;
-    static ArrayList<GameObject> updateQueue;
+    static ArrayList<ArrayList<GameObject>> updateQueue;
     private static GamestateManager gID = null;
     
     public GamestateManager() throws MultipleInstanceException
@@ -36,7 +36,8 @@ public final class GamestateManager {
     
     public void pushGamestate(Gamestate gamestate)
     {
-        gamestateStack.push(gamestate).onPush();
+        gamestateStack.push(gamestate).create();
+        gamestateStack.peek().onPush();
     }
     
     public void popGamestate()
@@ -44,11 +45,19 @@ public final class GamestateManager {
         gamestateStack.pop().onPop();
     }
     
+    public void addToUpdateQueue(ArrayList<GameObject> a)
+    {
+        updateQueue.add(a);
+    }
+    
     public void update()
     {
-        gamestateStack.peek().update();
-        gamestateStack.peek().prerender();
-        gamestateStack.peek().render();
+        if (!gamestateStack.empty())
+        {
+            gamestateStack.peek().update();
+            gamestateStack.peek().prerender();
+            gamestateStack.peek().render();
+        }
     }
     
     public static GamestateManager getGamestateManager()

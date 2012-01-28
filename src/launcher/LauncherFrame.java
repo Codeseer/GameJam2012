@@ -32,7 +32,7 @@ public class LauncherFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        clientButton.setText("Cleint");
+        clientButton.setText("Client");
         clientButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clientButtonActionPerformed(evt);

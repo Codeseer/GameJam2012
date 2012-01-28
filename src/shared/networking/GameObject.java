@@ -12,7 +12,7 @@ public abstract class GameObject
 {
     
     public int x,y;
-    private int objectId;
+    protected int objectId;
 
     public int getObjectId() {
         return objectId;

@@ -4,15 +4,18 @@
  */
 package client.game;
 
+import client.ConnectionSuccessful;
+import client.NetworkManager;
+
 /**
  *
  * @author Syynth
  */
-public class MenuState extends Gamestate {
+public class MenuState extends Gamestate implements ConnectionSuccessful {
 
     @Override
     public void onPush() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        NetworkManager.getNetworkManager().addConnectRequest(this);
     }
 
     @Override
@@ -38,6 +41,11 @@ public class MenuState extends Gamestate {
     @Override
     public void prerender() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void connectedSuccessfully() {
+        GamestateManager.getGamestateManager().pushGamestate(new PlayState());
     }
     
 }
