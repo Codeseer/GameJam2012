@@ -12,7 +12,7 @@ import com.esotericsoftware.kryonet.Listener;
 import java.io.IOException;
 import java.util.ArrayList;
 import shared.networking.GameObject;
-import shared.networking.ServerMessage;
+import shared.networking.ServerRequest;
 import shared.networking.UpdateRequest;
 
 /**
@@ -39,7 +39,7 @@ public final class NetworkManager extends Thread {
         Kryo kryo = client.getKryo();
         kryo.register(ArrayList.class);
         kryo.register(UpdateRequest.class);
-        kryo.register(ServerMessage.class);
+        kryo.register(ServerRequest.class);
         client.start();
         try {
             client.connect(5000, "localhost", 54555,54777);
@@ -81,7 +81,7 @@ public final class NetworkManager extends Thread {
         }
     }
     
-    public void addServerMessage(ServerMessage s)
+    public void addServerMessage(ServerRequest s)
     {
         if (client.isConnected())
         {
