@@ -12,11 +12,25 @@ import java.util.Stack;
  */
 public class GamestateManager {
     
-    Stack<Gamestate> gamestateStack;
+    static Stack<Gamestate> gamestateStack;
     
     public GamestateManager()
     {
-        gamestateStack = new Stack<Gamestate>();
+        gamestateStack = new Stack<>();
     }
     
+    public void start()
+    {
+        gamestateStack.push(null);
+    }
+    
+    public void run()
+    {
+        
+    }
+    
+    public static void add(Gamestate gamestate)
+    {
+        
+    }
 }
