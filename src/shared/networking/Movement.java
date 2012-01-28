@@ -14,9 +14,8 @@ public class Movement extends ServerMessage
     
     public Movement(int destX, int destY, int objectId)
     {
-        super();
+        super(objectId);
         this.destX = destX;
         this.destY = destY;
-        this.objectId = objectId;
     }
 }

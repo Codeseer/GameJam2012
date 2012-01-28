@@ -12,11 +12,20 @@ import shared.networking.ServerMessage;
  *
  * @author Scott Adams
  */
-public class ServerGameObject extends GameObject{
+public class ServerGameObject{
     private boolean TCP;
     private boolean updated;
+    private GameObject gameObject;
     private ArrayList<ServerMessage> messages;
 
+    public GameObject getGameObject() {
+    return gameObject;
+    }
+
+    public void setGameObject(GameObject gameObject) {
+        this.gameObject = gameObject;
+    }
+    
     public boolean isTCP() {
         return TCP;
     }

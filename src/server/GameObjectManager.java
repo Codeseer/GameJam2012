@@ -40,7 +40,7 @@ public class GameObjectManager {
      */
     public void add(ServerGameObject gameObject)
     {
-        gameObject.setObjectId(maxObjectId);
+        gameObject.getGameObject().setObjectId(maxObjectId);
         gameObjects.add(gameObject);
         maxObjectId++;
     }
@@ -57,7 +57,7 @@ public class GameObjectManager {
         for(;iterator.hasNext();)
         {
             tmpObj = iterator.next();
-            if(tmpObj.getObjectId()==objectId)
+            if(tmpObj.getGameObject().getObjectId()==objectId)
                 return tmpObj;
         }
         return null;
@@ -73,7 +73,7 @@ public class GameObjectManager {
         Iterator<ServerGameObject> iterator = gameObjects.iterator();
         for(;iterator.hasNext();)
         {
-            if(iterator.next().getObjectId()==objectId)
+            if(iterator.next().getGameObject().getObjectId()==objectId)
                 return true;
         }
         return false;
@@ -81,7 +81,7 @@ public class GameObjectManager {
     
     public ArrayList<GameObject> getUpdatedObjectsTCP()
     {
-        if(System.currentTimeMillis()-timeLastUpdate>50)
+        if(System.nanoTime()-timeLastUpdate>25000)
         {
             ArrayList<GameObject> tcpArray = new ArrayList();
             Iterator<ServerGameObject> iterator = gameObjects.iterator();
@@ -91,12 +91,12 @@ public class GameObjectManager {
                 tmpGObj = iterator.next();
                 if(tmpGObj.isUpdated()&&tmpGObj.isTCP())
                 {
-                        tcpArray.add(tmpGObj);
+                        tcpArray.add(tmpGObj.getGameObject());
                         tmpGObj.setUpdated(false);
                 }
             }
             tcpGameObjects = tcpArray;
-            timeLastUpdate = System.currentTimeMillis();
+            timeLastUpdate = System.nanoTime();
             return tcpArray;
         }
         else
@@ -105,7 +105,7 @@ public class GameObjectManager {
     
     public ArrayList<GameObject> getUpdatedObjectsUDP()
     {
-        if(System.currentTimeMillis()-timeLastUpdate>50)
+        if(System.nanoTime()-timeLastUpdate>25000)
         {
             ArrayList<GameObject> udpArray = new ArrayList();
             Iterator<ServerGameObject> iterator = gameObjects.iterator();
@@ -115,12 +115,12 @@ public class GameObjectManager {
                 tmpGObj = iterator.next();
                 if(tmpGObj.isUpdated()&&!tmpGObj.isTCP())
                 {
-                        udpArray.add(tmpGObj);
+                        udpArray.add(tmpGObj.getGameObject());
                         tmpGObj.setUpdated(false);
                 }
             }
             udpGameObjects = udpArray;
-            timeLastUpdate = System.currentTimeMillis();
+            timeLastUpdate = System.nanoTime();
             return udpArray;
         }
         else

@@ -77,8 +77,8 @@ public final class GameServer {
             {
                 if(object instanceof UpdateRequest)
                 {
-                    connection.sendTCP(Main.gameServer.gameObjectManager.getUpdatedObjectsUDP());
-                    connection.sendUDP(Main.gameServer.gameObjectManager.getUpdatedObjectsTCP());
+                    connection.sendTCP(Main.gameServer.gameObjectManager.getUpdatedObjectsTCP());
+                    connection.sendUDP(Main.gameServer.gameObjectManager.getUpdatedObjectsUDP());
                 }
                 else if(object instanceof ServerMessage)
                 {

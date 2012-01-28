@@ -11,4 +11,8 @@ package shared.networking;
 public abstract class ServerMessage 
 {
     public int objectId;
+    public ServerMessage(int objectId)
+    {
+        this.objectId = objectId;
+    }
 }
