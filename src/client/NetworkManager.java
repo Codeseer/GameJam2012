@@ -5,8 +5,9 @@
 package client;
 
 import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.Kryo.Listener;
 import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
 import java.io.IOException;
 import java.util.ArrayList;
 import shared.networking.ServerMessage;
@@ -20,6 +21,7 @@ public final class NetworkManager extends Thread {
     
     private static NetworkManager gID = null;
     public Client client;
+    private Callback callback;
     
     public NetworkManager() throws MultipleInstanceException
     {
@@ -40,7 +42,29 @@ public final class NetworkManager extends Thread {
         try {
             client.connect(5000, "localhost", 54555,54777);
         } catch (IOException ex) {}
-        //client.addListener();
+        client.addListener(new Listener()
+        {
+            @Override
+            public void connected(Connection c)
+            {
+                if (callback instanceof ConnectionSuccessful)
+                {
+                    ((ConnectionSuccessful)(callback)).connectedSuccessfully();
+                }
+            }
+            
+            @Override
+            public void disconnected(Connection c)
+            {
+                
+            }
+            
+            @Override
+            public void received(Connection c, Object o)
+            {
+                
+            }
+        });
     }
     
     public void addUpdateRequest()
@@ -49,6 +73,20 @@ public final class NetworkManager extends Thread {
         {
             client.sendTCP(new UpdateRequest());
         }
+    }
+    
+    public void addServerMessage(ServerMessage s)
+    {
+        if (client.isConnected())
+        {
+            client.sendTCP(s);
+        }
+    }
+    
+    public void addConnectRequest(ConnectionSuccessful c)
+    {
+        start();
+        callback = c;
     }
     
     public static NetworkManager getNetworkManager()
