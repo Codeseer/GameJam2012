@@ -4,6 +4,11 @@
  */
 package client;
 
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryonet.Client;
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
  *
  * @author Syynth
