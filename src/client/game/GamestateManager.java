@@ -7,7 +7,7 @@ package client.game;
 import client.MultipleInstanceException;
 import java.util.ArrayList;
 import java.util.Stack;
-import shared.networking.GameObject;
+import shared.networking.UpdateResponse;
 
 /**
  *
@@ -16,7 +16,7 @@ import shared.networking.GameObject;
 public final class GamestateManager {
     
     private static Stack<Gamestate> gamestateStack;
-    static ArrayList<ArrayList<GameObject>> updateQueue;
+    static ArrayList<UpdateResponse> updateQueue;
     private static GamestateManager gID = null;
     
     public GamestateManager() throws MultipleInstanceException
@@ -31,7 +31,7 @@ public final class GamestateManager {
     
     public void start()
     {
-        gamestateStack.push(new MenuState());
+        pushGamestate(new MenuState());
     }
     
     public void pushGamestate(Gamestate gamestate)
@@ -45,7 +45,7 @@ public final class GamestateManager {
         gamestateStack.pop().onPop();
     }
     
-    public void addToUpdateQueue(ArrayList<GameObject> a)
+    public void addToUpdateQueue(UpdateResponse a)
     {
         updateQueue.add(a);
     }
@@ -54,7 +54,7 @@ public final class GamestateManager {
     {
         if (!gamestateStack.empty())
         {
-            gamestateStack.peek().update();
+            gamestateStack.peek().update(updateQueue);
             gamestateStack.peek().prerender();
             gamestateStack.peek().render();
         }

@@ -41,10 +41,7 @@ public class GameEntity {
     
     public void render()
     {
-        if (visible)
-        {
-            
-        }
+        
     }
     
 }

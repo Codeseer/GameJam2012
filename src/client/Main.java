@@ -16,10 +16,10 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
+//import org.lwjgl.input.Keyboard;
+//import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
+//import org.lwjgl.opengl.DisplayMode;
 
 /**
  * @author jediTofu
@@ -77,16 +77,20 @@ public class Main {
         try {
             gamestateManager = new GamestateManager();
             networkManager = new NetworkManager();
+            try {
             videoManager = new VideoManager();
+            } catch (LWJGLException e) {}
             resourceManager = new ResourceManager();
         } catch (MultipleInstanceException m) { }
+        
+        gamestateManager.start();
 
     }
 
     public void create() throws LWJGLException {
         //Display
         
-        Display.setDisplayMode(new DisplayMode(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+        /*Display.setDisplayMode(new DisplayMode(DISPLAY_WIDTH, DISPLAY_HEIGHT));
         Display.setFullscreen(false);
         Display.setTitle("Hello LWJGL World!");
         Display.create();
@@ -100,14 +104,21 @@ public class Main {
 
         //OpenGL
         //initGL();
-        //resizeGL();
+        //resizeGL();*/
     }
 
     public void destroy() {
         //Methods already check if created before destroying.
-        Mouse.destroy();
+        /*Mouse.destroy();
         Keyboard.destroy();
-        Display.destroy();
+        Display.destroy();*/
+        
+        videoManager.destroy();
+    }
+    
+    public static void shutdown()
+    {
+        
     }
 
     
@@ -115,15 +126,13 @@ public class Main {
       }
     public void run() {
 
-        while (!Display.isCloseRequested() && !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+        while (!Display.isCloseRequested()/* && !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)*/) {
             if (Display.isVisible()) {
-                //processKeyboard();
-                //processMouse();
-                //update();
-                //render();
+                update();
+                videoManager.render();
             } else {
                 if (Display.isDirty()) {
-                    //render();
+                    videoManager.render();
                 }
                 try {
                     Thread.sleep(100);
@@ -133,6 +142,7 @@ public class Main {
             Display.update();
             Display.sync(60);
         }
+        networkManager.disconnect();
     }
 
     public void update() {

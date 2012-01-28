@@ -28,9 +28,11 @@ public final class NetworkManager extends Thread {
     
     public NetworkManager() throws MultipleInstanceException
     {
+        super();
         if (gID != null)
             throw new MultipleInstanceException("You can only have one " +
                     " instance of the singleton class NetworkManager");
+        gID = this;
     }
     
     @Override
@@ -45,6 +47,7 @@ public final class NetworkManager extends Thread {
         client.start();
         try {
             client.connect(5000, "localhost", 54555,54777);
+            System.out.println("Connect");
         } catch (IOException ex) {}
         client.addListener(new Listener()
         {
@@ -66,13 +69,18 @@ public final class NetworkManager extends Thread {
             @Override
             public void received(Connection c, Object o)
             {
-                if (o instanceof ArrayList)
+                if (o instanceof UpdateResponse)
                 {
                     GamestateManager.getGamestateManager().addToUpdateQueue(
-                            ((ArrayList<GameObject>)o));
+                            ((UpdateResponse)o));
                 }
             }
         });
+    }
+    
+    public void disconnect()
+    {
+        client.close();
     }
     
     public void addUpdateRequest()
@@ -93,7 +101,8 @@ public final class NetworkManager extends Thread {
     
     public void addConnectRequest(ConnectionSuccessful c)
     {
-        start();
+        
+        this.start();
         callback = c;
     }
     

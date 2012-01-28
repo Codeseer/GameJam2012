@@ -4,6 +4,10 @@
  */
 package client.game;
 
+import client.graphics.VideoManager;
+import java.util.ArrayList;
+import shared.networking.UpdateResponse;
+
 /**
  *
  * @author Syynth
@@ -28,18 +32,21 @@ public class PlayState extends Gamestate {
     }
 
     @Override
-    public void update() {
-        world.update();
+    public void update(ArrayList<UpdateResponse> updates) {
+        for (UpdateResponse u : updates)
+        {
+            world.update(u.gameObjects);
+        }
     }
 
     @Override
     public void prerender() {
-        world.prerender();
+        world.render();
     }
 
     @Override
     public void render() {
-        world.render();
+        //VideoManager.getVideoManager().render();
     }
     
 }
