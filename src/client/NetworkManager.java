@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import shared.networking.GameObject;
 import shared.networking.ServerRequest;
 import shared.networking.UpdateRequest;
+import shared.networking.UpdateResponse;
 
 /**
  *
@@ -39,6 +40,7 @@ public final class NetworkManager extends Thread {
         Kryo kryo = client.getKryo();
         kryo.register(ArrayList.class);
         kryo.register(UpdateRequest.class);
+        kryo.register(UpdateResponse.class);
         kryo.register(ServerRequest.class);
         client.start();
         try {

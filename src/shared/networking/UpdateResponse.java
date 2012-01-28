@@ -13,4 +13,8 @@ import java.util.ArrayList;
 public class UpdateResponse 
 {
     public ArrayList<GameObject> gameObjects;
+    public UpdateResponse(ArrayList<GameObject> gameObjects)
+    {
+        this.gameObjects = gameObjects;
+    }
 }

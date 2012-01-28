@@ -19,6 +19,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import shared.networking.ServerRequest;
 import shared.networking.UpdateRequest;
+import shared.networking.UpdateResponse;
 
 /**
  *
@@ -62,6 +63,7 @@ public final class GameServer {
         Kryo kryo = server.getKryo();
         kryo.register(ArrayList.class);
         kryo.register(UpdateRequest.class);
+        kryo.register(UpdateResponse.class);
         kryo.register(ServerRequest.class);
         
         server.start();
@@ -79,8 +81,8 @@ public final class GameServer {
             {
                 if(object instanceof UpdateRequest)
                 {
-                    connection.sendTCP(Main.gameServer.gameObjectManager.getUpdatedObjectsTCP());
-                    connection.sendUDP(Main.gameServer.gameObjectManager.getUpdatedObjectsUDP());
+                    connection.sendTCP(new UpdateResponse(Main.gameServer.gameObjectManager.getUpdatedObjectsTCP()));
+                    connection.sendUDP(new UpdateResponse(Main.gameServer.gameObjectManager.getUpdatedObjectsUDP()));
                 }
                 else if(object instanceof ServerRequest)
                 {
