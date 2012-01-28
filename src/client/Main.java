@@ -50,7 +50,7 @@ public class Main {
         Main main = null;
 
         // create client singletons
-        ResourceManager resourceManager = new ResourceManager();
+        ResourceManager resourceManager = null;
         InputManager input = null;  // to be impl.
         NetworkManager networkManager = null;   // to be impl.
         GamestateManager gamestateManager = null;   // to be impl.
@@ -78,7 +78,8 @@ public class Main {
             gamestateManager = new GamestateManager();
             networkManager = new NetworkManager();
             videoManager = new VideoManager();
-        } catch (MultipleInstanceException m) { System.out.println("Oh poo."); }
+            resourceManager = new ResourceManager();
+        } catch (MultipleInstanceException m) { }
 
     }
 

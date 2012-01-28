@@ -14,6 +14,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.util.ResourceLoader;
+import client.MultipleInstanceException;
 
 /**
  *
@@ -21,9 +22,17 @@ import org.newdawn.slick.util.ResourceLoader;
  */
 public class ResourceManager 
 {
+    
+    private static ResourceManager gID;
+    
     private HashMap rMap;
-    public ResourceManager()
+    public ResourceManager() throws MultipleInstanceException
     {
+        if (gID != null)
+            throw new MultipleInstanceException("You can only have one " +
+                    " instance of the singleton class ResourceManager");
+        gID = this;
+        
         rMap = new HashMap();
         init();
     }
@@ -130,4 +139,9 @@ private Collection<File> listFiles(
 	// Return collection of files
 	return files;
 }
+
+    public static ResourceManager getResourceManager()
+    {
+        return gID;
+    }
 }
