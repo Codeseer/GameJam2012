@@ -64,8 +64,9 @@ public class Main {
     }
 
     public Main() {
-
-        gamestateManager = new GamestateManager();
+        try {
+            gamestateManager = new GamestateManager();
+        } catch (MultipleInstanceException m) {}
 
     }
 
