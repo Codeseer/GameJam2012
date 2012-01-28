@@ -17,6 +17,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import shared.networking.ServerMessage;
 
 /**
  *
@@ -26,6 +27,7 @@ public final class GameServer {
     private Server server;
     private StyledDocument server_output_doc;
     public final GameObjectManager gameObjectManager;
+    private GameServerUpdater gameServerUpdater;
     public final Style style_error,style_fatal_error,style_success,style_unimportant;
     private ArrayList<UpdaterThread> updaterThreads;
     
@@ -50,7 +52,9 @@ public final class GameServer {
         
         //create a new GameObjectManager for the server
         gameObjectManager = new GameObjectManager();
-        
+        gameServerUpdater = new GameServerUpdater();
+        gameServerUpdater.setGameManagerObject(gameObjectManager);
+        gameServerUpdater.start();
         updaterThreads = new ArrayList();
         //Create new kryonet server
         server = new Server();
@@ -72,8 +76,11 @@ public final class GameServer {
             @Override
             public void received(Connection connection, Object object)
             {
-                RequestParser rParser = new RequestParser(object);
-                                
+                if(object instanceof ServerMessage)
+                {
+                    Main.gameServer.gameObjectManager.addMessage((ServerMessage)object);
+                }
+                
                 serverMessage("Request Recieved from "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
             }
             @Override

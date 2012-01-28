@@ -4,15 +4,18 @@
  */
 package server;
 
+import java.util.ArrayList;
+import shared.networking.GameObject;
+import shared.networking.ServerMessage;
+
 /**
  *
  * @author Scott Adams
  */
-public class GameObject {
-    public int x,y;
-    protected int objectId;
+public class ServerGameObject extends GameObject{
     private boolean TCP;
     private boolean updated;
+    private ArrayList<ServerMessage> messages;
 
     public boolean isTCP() {
         return TCP;
@@ -28,18 +31,20 @@ public class GameObject {
 
     public void setUpdated(boolean updated) {
         this.updated = updated;
-    }
-
-    public GameObject()
-    {}
+    }  
     
-    public int getObjectId()
+    public void addMessage(ServerMessage sm)
     {
-        return objectId;
+        messages.add(sm);
     }
     
-    void setObjectId(int objectId)
+    public void update()
     {
-        this.objectId = objectId;
+        //add your game logic here
+    }
+    
+    public void clearMessages()
+    {
+        messages.clear();
     }
 }

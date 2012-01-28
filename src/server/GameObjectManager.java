@@ -4,16 +4,18 @@
  */
 package server;
 
-import server.GameObject;
+import server.ServerGameObject;
 import java.util.ArrayList;
 import java.util.Iterator;
+import shared.networking.GameObject;
+import shared.networking.ServerMessage;
 
 /**
  *
  * @author Scott Adams
  */
 public class GameObjectManager {
-    private ArrayList<GameObject> gameObjects;
+    private ArrayList<ServerGameObject> gameObjects;
     
     //manages ids so no object will ever have the same id.
     private int maxObjectId;
@@ -21,6 +23,8 @@ public class GameObjectManager {
     private long timeLastUpdate = 0;
     private ArrayList<GameObject> udpGameObjects;
     private ArrayList<GameObject> tcpGameObjects;
+    private ArrayList<ServerMessage> serverMessages;
+    
     public GameObjectManager()
     {        
         maxObjectId = 0;
@@ -31,24 +35,24 @@ public class GameObjectManager {
     
     /**
      * Assigns a unique Id to the game object and adds it to the collection of game objects.
-     * @param gameObject the GameObject to add to the collection of game objects
+     * @param gameObject the ServerGameObject to add to the collection of game objects
      */
-    public void add(GameObject gameObject)
+    public void add(ServerGameObject gameObject)
     {
         gameObject.setObjectId(maxObjectId);
         gameObjects.add(gameObject);
         maxObjectId++;
     }
     
-    public boolean remove(GameObject gameObject)
+    public boolean remove(ServerGameObject gameObject)
     {
         return gameObjects.remove(gameObject);
     }
     
-    public GameObject get(int objectId)
+    public ServerGameObject get(int objectId)
     {
-        Iterator<GameObject> iterator = gameObjects.iterator();
-        GameObject tmpObj;
+        Iterator<ServerGameObject> iterator = gameObjects.iterator();
+        ServerGameObject tmpObj;
         for(;iterator.hasNext();)
         {
             tmpObj = iterator.next();
@@ -59,13 +63,13 @@ public class GameObjectManager {
     }
     
     /**
-     * Checks to see if an objectId corresponds to a GameObject
+     * Checks to see if an objectId corresponds to a ServerGameObject
      * @param objectId the id to check for
      * @return
      */
     public boolean checkForId(int objectId)
     {
-        Iterator<GameObject> iterator = gameObjects.iterator();
+        Iterator<ServerGameObject> iterator = gameObjects.iterator();
         for(;iterator.hasNext();)
         {
             if(iterator.next().getObjectId()==objectId)
@@ -79,8 +83,8 @@ public class GameObjectManager {
         if(System.currentTimeMillis()-timeLastUpdate>50)
         {
             ArrayList<GameObject> tcpArray = new ArrayList();
-            Iterator<GameObject> iterator = gameObjects.iterator();
-            GameObject tmpGObj;
+            Iterator<ServerGameObject> iterator = gameObjects.iterator();
+            ServerGameObject tmpGObj;
             for(;iterator.hasNext();)
             {
                 tmpGObj = iterator.next();
@@ -103,8 +107,8 @@ public class GameObjectManager {
         if(System.currentTimeMillis()-timeLastUpdate>50)
         {
             ArrayList<GameObject> udpArray = new ArrayList();
-            Iterator<GameObject> iterator = gameObjects.iterator();
-            GameObject tmpGObj;
+            Iterator<ServerGameObject> iterator = gameObjects.iterator();
+            ServerGameObject tmpGObj;
             for(;iterator.hasNext();)
             {
                 tmpGObj = iterator.next();
@@ -120,5 +124,30 @@ public class GameObjectManager {
         }
         else
             return udpGameObjects;
+    }
+    public void updateAll()
+    {
+        Iterator<ServerGameObject> iterator = gameObjects.iterator();
+        ServerGameObject tmpGObj;
+        for(;iterator.hasNext();)
+        {
+            tmpGObj = iterator.next();
+            tmpGObj.update();
+        }
+    }
+    public void sendMessages()
+    {
+        Iterator<ServerMessage> iterator = serverMessages.iterator();
+        ServerMessage tmpSM;
+        for(;iterator.hasNext();)
+        {
+            tmpSM = iterator.next();
+            get(tmpSM.objectId).addMessage(tmpSM);                    
+        }
+    }
+    
+    public void addMessage(ServerMessage sm)
+    {
+        serverMessages.add(sm);
     }
 }
