@@ -31,7 +31,7 @@ public class Main {
     public static final int DISPLAY_WIDTH = 1280;
     public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
     // create client singletons
-    static InputManager input = null;  // to be impl.
+    static InputManager inputManager = null;  // to be impl.
     static NetworkManager networkManager = null;   // to be impl.
     static ResourceManager resourceManager = null; // to be impl.
     static GamestateManager gamestateManager = null;   // to be impl.
@@ -51,7 +51,7 @@ public class Main {
 
         // create client singletons
         ResourceManager resourceManager = null;
-        InputManager input = null;  // to be impl.
+        InputManager inputManager = null;  // to be impl.
         NetworkManager networkManager = null;   // to be impl.
         GamestateManager gamestateManager = null;   // to be impl.
         AudioManager audioManager = null;   // to be impl.
@@ -81,6 +81,7 @@ public class Main {
             videoManager = new VideoManager();
             } catch (LWJGLException e) {}
             resourceManager = new ResourceManager();
+            inputManager = new InputManager();
         } catch (MultipleInstanceException m) { }
         
         gamestateManager.start();
@@ -112,7 +113,7 @@ public class Main {
         /*Mouse.destroy();
         Keyboard.destroy();
         Display.destroy();*/
-        
+        inputManager.destroy();
         videoManager.destroy();
         
         System.exit(0);

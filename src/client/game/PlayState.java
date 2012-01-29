@@ -4,9 +4,13 @@
  */
 package client.game;
 
+import client.NetworkManager;
 import client.graphics.VideoManager;
 import java.util.ArrayList;
 import shared.networking.GameObject;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+import shared.networking.Movement;
 
 /**
  *
@@ -15,6 +19,7 @@ import shared.networking.GameObject;
 public class PlayState extends Gamestate {
     
     private GameWorld world;
+    private int playerId;
 
     @Override
     public void onPush() {        
@@ -28,10 +33,16 @@ public class PlayState extends Gamestate {
     
     public PlayState() {
         world = new GameWorld();
+        playerId = 2;
     }
 
     @Override
     public void update(ArrayList<ArrayList<GameObject>> updates) {
+        
+        if (Mouse.isButtonDown(0))
+        {
+            NetworkManager.getNetworkManager().addServerRequest(new Movement(Mouse.getX(), Mouse.getY(), playerId));
+        }
          
         for (ArrayList<GameObject> u : updates)
         {

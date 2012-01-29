@@ -92,7 +92,7 @@ public final class NetworkManager {
         }
     }
     
-    public void addServerMessage(ServerRequest s)
+    public void addServerRequest(ServerRequest s)
     {
         if (client.isConnected())
         {
