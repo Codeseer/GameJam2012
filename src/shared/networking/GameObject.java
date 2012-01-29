@@ -4,11 +4,13 @@
  */
 package shared.networking;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Scott Adams
  */
-public abstract class GameObject 
+public abstract class GameObject implements Serializable
 {
     
     public int x,y;

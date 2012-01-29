@@ -29,28 +29,28 @@ public final class GamestateManager {
         gID = this;
     }
     
-    public void start()
+    public synchronized void start()
     {
         pushGamestate(new MenuState());
     }
     
-    public void pushGamestate(Gamestate gamestate)
+    public synchronized void pushGamestate(Gamestate gamestate)
     {
         gamestateStack.push(gamestate).create();
         gamestateStack.peek().onPush();
     }
     
-    public void popGamestate()
+    public synchronized void popGamestate()
     {
         gamestateStack.pop().onPop();
     }
     
-    public void addToUpdateQueue(UpdateResponse a)
+    public synchronized void addToUpdateQueue(UpdateResponse a)
     {
         updateQueue.add(a);
     }
     
-    public void update()
+    public synchronized void update()
     {
         if (!gamestateStack.empty())
         {
@@ -60,7 +60,7 @@ public final class GamestateManager {
         }
     }
     
-    public static GamestateManager getGamestateManager()
+    public synchronized static GamestateManager getGamestateManager()
     {
         return gID;
     }

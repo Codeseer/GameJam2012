@@ -18,7 +18,7 @@ public class PlayState extends Gamestate {
     private GameWorld world;
 
     @Override
-    public void onPush() {
+    public void onPush() {        
         // tell resource loader to load resources
     }
 
@@ -34,7 +34,7 @@ public class PlayState extends Gamestate {
 
     @Override
     public void update(ArrayList<UpdateResponse> updates) {
-        NetworkManager.getNetworkManager().addUpdateRequest();
+               
         for (UpdateResponse u : updates)
         {
             world.update(u.gameObjects);

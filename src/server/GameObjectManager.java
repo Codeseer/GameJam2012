@@ -125,7 +125,7 @@ public class GameObjectManager {
         else
             return udpGameObjects;
     }
-    public void updateAll()
+    public synchronized void updateAll()
     {
         Iterator<GameEntity> iterator = gameObjects.iterator();
         GameEntity tmpGObj;
@@ -135,7 +135,7 @@ public class GameObjectManager {
             tmpGObj.update();
         }
     }
-    public void sendMessages()
+    public synchronized void sendMessages()
     {
         Iterator<ServerRequest> iterator = serverMessages.iterator();
         ServerRequest tmpSM;

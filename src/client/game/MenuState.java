@@ -7,6 +7,7 @@ package client.game;
 import client.ConnectionSuccessful;
 import client.NetworkManager;
 import java.util.ArrayList;
+import shared.networking.UpdateRequest;
 import shared.networking.UpdateResponse;
 
 /**

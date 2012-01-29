@@ -4,14 +4,13 @@
  */
 package client.graphics;
 
-import static org.lwjgl.opengl.GL11.*;
-import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.Color;
 import client.MultipleInstanceException;
 import java.util.ArrayList;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import static org.lwjgl.opengl.GL11.*;
+import org.newdawn.slick.Color;
 
 /**
  *
@@ -21,8 +20,8 @@ public final class VideoManager {
     
     private static VideoManager gID;
     
-    private static final int DISPLAY_WIDTH = 800;
-    private static final int DISPLAY_HEIGHT = 800;
+    private static final int DISPLAY_WIDTH = 320;
+    private static final int DISPLAY_HEIGHT = 240;
     
     private static ArrayList<RenderData> renderQuads;
     
@@ -78,10 +77,11 @@ public final class VideoManager {
     {
         glClear(GL_COLOR_BUFFER_BIT);
         Color.white.bind();
-        glBegin(GL_QUADS);
         for (RenderData r : renderQuads)
         {
             r.getResource().getTexture(r.getFrame()).bind();
+            
+            glBegin(GL_QUADS);
             
             glTexCoord2f(0, 0);
             glVertex2f(r.getX(), r.getY());
@@ -95,8 +95,10 @@ public final class VideoManager {
             
             glTexCoord2f(0, 1);
             glVertex2f(r.getX(), r.getY() + r.getQuad().getHeight());
+            
+            glEnd();
+            
         }
-        glEnd();
     }
     
     public void destroy()

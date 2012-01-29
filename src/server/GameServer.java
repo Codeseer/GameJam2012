@@ -5,6 +5,8 @@
 package server;
 
 import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.serialize.ClassSerializer;
+import com.esotericsoftware.kryo.serialize.CollectionSerializer;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -17,10 +19,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
-import shared.networking.PlayerObject;
-import shared.networking.ServerRequest;
-import shared.networking.UpdateRequest;
-import shared.networking.UpdateResponse;
+import shared.networking.*;
 
 /**
  *
@@ -32,7 +31,6 @@ public final class GameServer {
     public final GameObjectManager gameObjectManager;
     private GameServerUpdater gameServerUpdater;
     public final Style style_error,style_fatal_error,style_success,style_unimportant;
-    
     public GameServer(JTextPane server_output_pane)
     {
         server_output_doc = server_output_pane.getStyledDocument();
@@ -60,14 +58,18 @@ public final class GameServer {
         //Create new kryonet server
         server = new Server();
         
+        
         //Register classes with kryo
         Kryo kryo = server.getKryo();
-        kryo.register(ArrayList.class);
-        kryo.register(UpdateRequest.class);
-        kryo.register(UpdateResponse.class);
-        kryo.register(ServerRequest.class);
-        
+            kryo.register(Object.class);
+            kryo.register(UpdateRequest.class);
+            //kryo.register(UpdateResponse.class,new ClassSerializer(kryo));
+            kryo.register(ServerRequest.class,new ClassSerializer(kryo));
+            kryo.register(GameObject.class);
+            kryo.register(ArrayList.class, new CollectionSerializer(kryo));
+            kryo.register(PlayerObject.class);
         server.start();
+        
         try {
             server.bind(54555,54777);
                 serverMessage("Successful started server on port 54555(TCP) and 54777(UDP)\n",style_success);
@@ -82,8 +84,8 @@ public final class GameServer {
             {
                 if(object instanceof UpdateRequest)
                 {
-                    connection.sendTCP(new UpdateResponse(Main.gameServer.gameObjectManager.getUpdatedObjectsTCP()));
-                    connection.sendUDP(new UpdateResponse(Main.gameServer.gameObjectManager.getUpdatedObjectsUDP()));
+                    connection.sendTCP(Main.gameServer.gameObjectManager.getUpdatedObjectsTCP());
+                    //connection.sendUDP(new UpdateResponse(Main.gameServer.gameObjectManager.getUpdatedObjectsUDP()));
                     serverMessage("Request Recieved from "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
                 }
                 else if(object instanceof ServerRequest)
@@ -91,6 +93,7 @@ public final class GameServer {
                     Main.gameServer.gameObjectManager.addMessage((ServerRequest)object);
                     serverMessage("Request Recieved from "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
                 }
+                connection.sendTCP(Main.gameServer.gameObjectManager.getUpdatedObjectsTCP());
             }
             @Override
             public void connected(Connection connection)
