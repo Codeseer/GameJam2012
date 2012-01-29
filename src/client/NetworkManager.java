@@ -25,7 +25,6 @@ public final class NetworkManager {
     public Client client;
     private Callback callback;
     private NetworkConnection nc;
-    
     private class NetworkConnection extends Thread
     {
         @Override

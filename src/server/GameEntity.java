@@ -15,8 +15,8 @@ import shared.networking.ServerRequest;
 public class GameEntity{
     private boolean TCP = true;
     private GameObject gameObject;
-    private ArrayList<ServerRequest> messages;
-
+    protected ArrayList<ServerRequest> messages;
+    protected int destX,destY;
     public GameObject getGameObject() {
     return gameObject;
     }

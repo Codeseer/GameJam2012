@@ -10,9 +10,10 @@ package shared.networking;
  */
 public abstract class ServerRequest
 {
-    public int objectId;
-    public ServerRequest(int objectId)
+    public int objectId,clientId;
+    public ServerRequest(int objectId,int clientId)
     {
+        this.clientId = clientId;
         this.objectId = objectId;
     }
 }

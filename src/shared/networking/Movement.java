@@ -12,9 +12,9 @@ public class Movement extends ServerRequest
 {
     public int destX,destY;
     
-    public Movement(int destX, int destY, int objectId)
+    public Movement(int destX, int destY, int objectId, int clientId)
     {
-        super(objectId);
+        super(objectId,clientId);
         this.destX = destX;
         this.destY = destY;
     }

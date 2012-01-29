@@ -93,6 +93,7 @@ public final class GameServer {
             public void connected(Connection connection)
             {
                 PlayerEntity newPlayer = new PlayerEntity();
+                newPlayer.owner = connection.getID();
                 newPlayer.setGameObject(new PlayerObject());
                 newPlayer.getGameObject().x = (int)(Math.random()*700);
                 newPlayer.getGameObject().y = (int)(Math.random()*500);
