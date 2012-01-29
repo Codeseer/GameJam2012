@@ -17,7 +17,8 @@ public class MenuState extends Gamestate implements ConnectionSuccessful {
 
     @Override
     public void onPush() {
-        NetworkManager.getNetworkManager().addConnectRequest(this);
+        //NetworkManager.getNetworkManager().addConnectRequest(this);
+        GamestateManager.getGamestateManager().pushGamestate(new PlayState());
     }
 
     @Override
@@ -25,8 +26,7 @@ public class MenuState extends Gamestate implements ConnectionSuccessful {
         
     }
 
-    @Override
-    public void create() {
+    public MenuState() {
     }
 
     @Override

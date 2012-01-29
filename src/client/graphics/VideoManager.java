@@ -32,6 +32,8 @@ public final class VideoManager {
                     " instance of the singleton class VideoManager");
         gID = this;
         
+        
+        
         renderQuads = new ArrayList<>();
         
         Display.setDisplayMode(new DisplayMode(DISPLAY_WIDTH, DISPLAY_HEIGHT));
@@ -75,6 +77,7 @@ public final class VideoManager {
     
     public void render()
     {
+        //System.out.println(renderQuads);
         glClear(GL_COLOR_BUFFER_BIT);
         Color.white.bind();
         for (RenderData r : renderQuads)
