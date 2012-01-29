@@ -55,7 +55,7 @@ public final class GamestateManager {
     {
         if (!gamestateStack.empty())
         {
-            if(System.nanoTime()-lastUpdate>50000)
+            if(System.nanoTime()-lastUpdate>50000000)
             {
                 NetworkManager.getNetworkManager().addUpdateRequest();
             }

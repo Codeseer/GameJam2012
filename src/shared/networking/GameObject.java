@@ -14,6 +14,7 @@ public abstract class GameObject implements Serializable
 {
     
     public int x,y;
+    public int width,height;
     protected int objectId;
 
     public int getObjectId() {
