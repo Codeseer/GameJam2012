@@ -32,15 +32,17 @@ public class RenderData {
     public RenderData(String rName, String tName, GameObject ref)
     {
         resource = ResourceManager.getResourceManager().getResource(rName);
-        quad = new Quad(0, 0, resource.getTexture(tName).getImageWidth(),
-                resource.getTexture(tName).getImageHeight());
+        System.out.println(ResourceManager.getResourceManager());
+        //quad = new Quad(0, 0, resource.getTexture(tName).getImageWidth(),
+        //        resource.getTexture(tName).getImageHeight());
+        quad = new Quad(0, 0, 50, 50);
         currentFrame = tName;
         object = ref;
     }
     
     public String getFrame()
     {
-        return currentFrame;
+        return Math.random() < 0.5 ? "face0" : "face1";
     }
     
     public boolean isBlank()

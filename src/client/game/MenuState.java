@@ -7,8 +7,7 @@ package client.game;
 import client.ConnectionSuccessful;
 import client.NetworkManager;
 import java.util.ArrayList;
-import shared.networking.UpdateRequest;
-import shared.networking.UpdateResponse;
+import shared.networking.GameObject;
 
 /**
  *
@@ -18,7 +17,8 @@ public class MenuState extends Gamestate implements ConnectionSuccessful {
 
     @Override
     public void onPush() {
-        NetworkManager.getNetworkManager().addConnectRequest(this);
+        //NetworkManager.getNetworkManager().addConnectRequest(this);
+        GamestateManager.getGamestateManager().pushGamestate(new PlayState());
     }
 
     @Override
@@ -26,12 +26,11 @@ public class MenuState extends Gamestate implements ConnectionSuccessful {
         
     }
 
-    @Override
-    public void create() {
+    public MenuState() {
     }
 
     @Override
-    public void update(ArrayList<UpdateResponse> updates) {
+    public void update(ArrayList<ArrayList<GameObject>> updates) {
     }
 
     @Override

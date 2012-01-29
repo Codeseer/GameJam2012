@@ -20,6 +20,9 @@ public class GameWorld {
     public GameWorld()
     {
         gameEntities = new ArrayList<>();
+        /*PlayerObject p = new PlayerObject();
+        p.x = 200; p.y = 200; p.setObjectId(0);
+        gameEntities.add(new PlayerEntity(p));*/
     }
     
     public void update(ArrayList<GameObject> updates)

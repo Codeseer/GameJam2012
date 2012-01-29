@@ -20,8 +20,8 @@ public final class VideoManager {
     
     private static VideoManager gID;
     
-    private static final int DISPLAY_WIDTH = 800;
-    private static final int DISPLAY_HEIGHT = 800;
+    private static final int DISPLAY_WIDTH = 1280;
+    private static final int DISPLAY_HEIGHT = 720;
     
     private static ArrayList<RenderData> renderQuads;
     
@@ -31,6 +31,8 @@ public final class VideoManager {
             throw new MultipleInstanceException("You can only have one " +
                     " instance of the singleton class VideoManager");
         gID = this;
+        
+        
         
         renderQuads = new ArrayList<>();
         
@@ -75,6 +77,7 @@ public final class VideoManager {
     
     public void render()
     {
+        //System.out.println(renderQuads);
         glClear(GL_COLOR_BUFFER_BIT);
         Color.white.bind();
         for (RenderData r : renderQuads)

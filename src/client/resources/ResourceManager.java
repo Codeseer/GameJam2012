@@ -4,17 +4,14 @@
  */
 package client.resources;
 
+import client.MultipleInstanceException;
 import java.io.File;
 import java.io.FilenameFilter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.newdawn.slick.util.ResourceLoader;
-import client.MultipleInstanceException;
 
 /**
  *
@@ -51,13 +48,15 @@ public class ResourceManager
         
         for(int i = 0; i<textureFiles.length; i++)
         {
+            String resourceName = textureFiles[i].getParentFile().getName();
             //if the other assets from the resource has not already been loaded
             if(!rMap.containsKey(textureFiles[i].getParent()))
             {
                 //Add the new Resource
-                rMap.put(textureFiles[i].getParent(),new Resource(textureFiles[i].getParent()));
+                
+                rMap.put(resourceName,new Resource(resourceName));
             }           
-                Resource tmpR = (Resource)rMap.get(textureFiles[i].getParent());
+                Resource tmpR = (Resource)rMap.get(resourceName);
                 InputStream tmpT = ResourceLoader.getResourceAsStream(textureFiles[i].getPath());
                 String textureName = textureFiles[i].getName().replace(".png","");
                 tmpR.addTexture(textureName,tmpT);
@@ -73,13 +72,14 @@ public class ResourceManager
             },true);
         for(int i = 0; i<audioFiles.length; i++)
         {
+            String resourceName = audioFiles[i].getParentFile().getName();
             //if the other assets from the resource has not already been loaded
             if(rMap.containsKey(audioFiles[i].getParent()))
             {
-                //Add the new Resource
-                rMap.put(audioFiles[i].getParent(),new Resource(audioFiles[i].getParent()));                
+                
+                rMap.put(resourceName,new Resource(resourceName));             
             }
-                Resource tmpR = (Resource)rMap.get(audioFiles[i].getParent());
+                Resource tmpR = (Resource)rMap.get(resourceName);
                 InputStream tmpA = ResourceLoader.getResourceAsStream(audioFiles[i].getPath());
                 String audioName = audioFiles[i].getName().replace(".ogg","");
                 tmpR.addSound(audioName,tmpA);
