@@ -11,6 +11,7 @@ package shared.networking;
 public class PlayerObject extends GameObject {
     
     private double health;
+    public int owner;
     
     public void setHealth(double health)
     {

@@ -82,7 +82,7 @@ public final class VideoManager {
         glClear(GL_COLOR_BUFFER_BIT);
         Color.white.bind();
         
-        ResourceManager.getResourceManager().getResource("backgrounds").getTexture("tiles").bind();
+        ResourceManager.getResourceManager().getResource("backgrounds").getTexture("awesome_eye").bind();
         
         glBegin(GL_QUADS);
             for (int _y = 0; _y < DISPLAY_HEIGHT; _y += 320)

@@ -19,8 +19,7 @@ import shared.networking.Movement;
 public class PlayState extends Gamestate {
     
     private GameWorld world;
-    private int playerId;
-
+    public static int playerId;
     @Override
     public void onPush() {        
         // tell resource loader to load resources
@@ -32,8 +31,7 @@ public class PlayState extends Gamestate {
     }
     
     public PlayState() {
-        world = new GameWorld();
-        playerId = 2;
+        world = new GameWorld();        
     }
 
     @Override
@@ -41,7 +39,13 @@ public class PlayState extends Gamestate {
         
         if (Mouse.isButtonDown(0))
         {
-            NetworkManager.getNetworkManager().addServerRequest(new Movement(Mouse.getX(), Mouse.getY(), playerId));
+            Movement mov = new Movement();
+            mov.destX=Mouse.getX();
+            mov.destY=Mouse.getY();
+            mov.objectId = playerId;
+            mov.clientId = NetworkManager.getNetworkManager().client.getID();            
+            NetworkManager.getNetworkManager().addServerRequest(mov);
+            
         }
          
         for (ArrayList<GameObject> u : updates)

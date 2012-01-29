@@ -4,6 +4,7 @@
  */
 package client.game;
 
+import client.NetworkManager;
 import client.graphics.VideoManager;
 import java.util.ArrayList;
 import shared.networking.GameObject;
@@ -36,13 +37,19 @@ public class GameWorld {
                 {
                     exists = true;
                     e.object = g;
+                    System.out.println(e.object.x);
                 }
             }
             if (!exists)
             {
                 if (g instanceof PlayerObject)
                 {
-                    gameEntities.add(new PlayerEntity((PlayerObject)g));
+                    PlayerObject po = (PlayerObject)g;
+                    gameEntities.add(new PlayerEntity(po));
+                    if (po.owner == NetworkManager.getNetworkManager().client.getID())
+                    {
+                        PlayState.playerId = po.getObjectId();
+                    }
                 }
             }
         }

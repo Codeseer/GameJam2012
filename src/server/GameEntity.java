@@ -23,6 +23,7 @@ public class GameEntity{
 
     public void setGameObject(GameObject gameObject) {
         this.gameObject = gameObject;
+        messages = new ArrayList();
     }
     
     public boolean isTCP() {

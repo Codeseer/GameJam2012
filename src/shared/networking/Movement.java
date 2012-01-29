@@ -11,11 +11,4 @@ package shared.networking;
 public class Movement extends ServerRequest 
 {
     public int destX,destY;
-    
-    public Movement(int destX, int destY, int objectId, int clientId)
-    {
-        super(objectId,clientId);
-        this.destX = destX;
-        this.destY = destY;
-    }
 }

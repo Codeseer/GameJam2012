@@ -20,6 +20,7 @@ public class PlayerEntity extends GameEntity {
     {
         super.setGameObject(playerObject);
         po = playerObject;
+        po.owner = owner;
     }
     public void update()
     {
@@ -31,8 +32,8 @@ public class PlayerEntity extends GameEntity {
                 Movement mov = (Movement)m;
                 if(mov.clientId == owner)
                 {                    
-                    this.getGameObject().x = mov.destX;
-                    this.getGameObject().y = mov.destY;
+                    getGameObject().x = mov.destX;
+                    getGameObject().y = mov.destY;
                 }
             }
         }
