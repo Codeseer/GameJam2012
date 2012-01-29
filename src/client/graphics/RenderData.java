@@ -33,16 +33,16 @@ public class RenderData {
     {
         resource = ResourceManager.getResourceManager().getResource(rName);
         System.out.println(ResourceManager.getResourceManager());
-        //quad = new Quad(0, 0, resource.getTexture(tName).getImageWidth(),
-        //        resource.getTexture(tName).getImageHeight());
-        quad = new Quad(0, 0, 50, 50);
+        quad = new Quad(0, 0, resource.getTexture(tName).getImageWidth(),
+                resource.getTexture(tName).getImageHeight());
+        //quad = new Quad(0, 0, 50, 50);
         currentFrame = tName;
         object = ref;
     }
     
     public String getFrame()
     {
-        return Math.random() < 0.5 ? "face0" : "face1";
+        return currentFrame;
     }
     
     public boolean isBlank()

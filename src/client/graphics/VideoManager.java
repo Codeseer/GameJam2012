@@ -106,7 +106,7 @@ public final class VideoManager {
     
     public void destroy()
     {
-        
+        Display.destroy();
     }
     
 }
