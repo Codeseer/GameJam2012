@@ -20,8 +20,8 @@ public final class VideoManager {
     
     private static VideoManager gID;
     
-    private static final int DISPLAY_WIDTH = 320;
-    private static final int DISPLAY_HEIGHT = 240;
+    private static final int DISPLAY_WIDTH = 800;
+    private static final int DISPLAY_HEIGHT = 800;
     
     private static ArrayList<RenderData> renderQuads;
     
