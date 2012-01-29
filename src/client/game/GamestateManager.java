@@ -21,8 +21,8 @@ public final class GamestateManager {
     
     public GamestateManager() throws MultipleInstanceException
     {
-        gamestateStack = new Stack<>();
-        updateQueue = new ArrayList<>();
+        gamestateStack = new Stack();
+        updateQueue = new ArrayList();
         if (gID != null)
             throw new MultipleInstanceException("You can only have one " +
                     " instance of the singleton class GamestateManager");

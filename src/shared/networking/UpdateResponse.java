@@ -4,14 +4,13 @@
  */
 package shared.networking;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Scott Adams
  */
-public class UpdateResponse implements Serializable
+public class UpdateResponse
 {
     public ArrayList<GameObject> gameObjects;
     public UpdateResponse()
