@@ -88,10 +88,9 @@ public class GameObjectManager {
             for(;iterator.hasNext();)
             {
                 tmpGObj = iterator.next();
-                if(tmpGObj.isUpdated()&&tmpGObj.isTCP())
+                if(tmpGObj.isTCP())
                 {
                         tcpArray.add(tmpGObj.getGameObject());
-                        tmpGObj.setUpdated(false);
                 }
             }
             tcpGameObjects = tcpArray;
@@ -112,10 +111,9 @@ public class GameObjectManager {
             for(;iterator.hasNext();)
             {
                 tmpGObj = iterator.next();
-                if(tmpGObj.isUpdated()&&!tmpGObj.isTCP())
+                if(!tmpGObj.isTCP())
                 {
                         udpArray.add(tmpGObj.getGameObject());
-                        tmpGObj.setUpdated(false);
                 }
             }
             udpGameObjects = udpArray;
@@ -149,5 +147,10 @@ public class GameObjectManager {
     public void addMessage(ServerRequest sm)
     {
         serverMessages.add(sm);
+    }
+    
+    public ArrayList<GameEntity> getAll()
+    {
+        return gameObjects;
     }
 }

@@ -27,8 +27,8 @@ import org.lwjgl.opengl.Display;
  */
 public class Main {
 
-    public static final int DISPLAY_HEIGHT = 480;
-    public static final int DISPLAY_WIDTH = 640;
+    public static final int DISPLAY_HEIGHT = 720;
+    public static final int DISPLAY_WIDTH = 1280;
     public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
     // create client singletons
     static InputManager input = null;  // to be impl.

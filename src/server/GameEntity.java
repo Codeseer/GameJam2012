@@ -14,7 +14,6 @@ import shared.networking.ServerRequest;
  */
 public class GameEntity{
     private boolean TCP = true;
-    private boolean updated;
     private GameObject gameObject;
     private ArrayList<ServerRequest> messages;
 
@@ -33,14 +32,6 @@ public class GameEntity{
     public void setTCP(boolean TCP) {
         this.TCP = TCP;
     }
-
-    public boolean isUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(boolean updated) {
-        this.updated = updated;
-    }  
     
     public void addMessage(ServerRequest sm)
     {

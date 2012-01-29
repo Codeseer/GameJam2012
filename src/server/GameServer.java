@@ -94,7 +94,8 @@ public final class GameServer {
             {
                 PlayerEntity newPlayer = new PlayerEntity();
                 newPlayer.setGameObject(new PlayerObject());
-                newPlayer.setUpdated(true);
+                newPlayer.getGameObject().x = (int)(Math.random()*700);
+                newPlayer.getGameObject().y = (int)(Math.random()*500);
                 Main.gameServer.gameObjectManager.add(newPlayer);
                 serverMessage("Connection Established from client "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
             }
