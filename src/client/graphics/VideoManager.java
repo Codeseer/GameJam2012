@@ -5,6 +5,7 @@
 package client.graphics;
 
 import client.MultipleInstanceException;
+import client.resources.ResourceManager;
 import java.util.ArrayList;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -80,6 +81,26 @@ public final class VideoManager {
         //System.out.println(renderQuads);
         glClear(GL_COLOR_BUFFER_BIT);
         Color.white.bind();
+        
+        ResourceManager.getResourceManager().getResource("backgrounds").getTexture("tiles").bind();
+        
+        glBegin(GL_QUADS);
+            for (int _y = 0; _y < DISPLAY_HEIGHT; _y += 320)
+            {
+                for (int _x = 0; _x < DISPLAY_WIDTH; _x += 320)
+                {
+                    glTexCoord2f(0, 0);
+                    glVertex2f(_x, _y);
+                    glTexCoord2f(1, 0);
+                    glVertex2f(_x + 512, _y);
+                    glTexCoord2f(1, 1);
+                    glVertex2f(_x + 512, _y + 512);
+                    glTexCoord2f(0, 1);
+                    glVertex2f(_x, _y + 512);
+                }
+            }
+        glEnd();
+        
         for (RenderData r : renderQuads)
         {
             r.getResource().getTexture(r.getFrame()).bind();

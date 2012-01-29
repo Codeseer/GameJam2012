@@ -4,6 +4,7 @@
  */
 package client;
 
+import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -13,6 +14,35 @@ import org.lwjgl.input.Mouse;
  */
 public final class InputManager {
     
+    private static InputManager gID = null;
     
+    public InputManager() throws MultipleInstanceException
+    {
+        if (gID != null)
+            throw new MultipleInstanceException("You can only have one " +
+                    " instance of the singleton class InputManager");
+        gID = this;
+        
+        initHID();
+    }
+    
+    private void initHID()
+    {
+        try {
+            Keyboard.create();
+            Mouse.create();
+        } catch (LWJGLException e) {}
+    }
+    
+    public void destroy()
+    {
+        Keyboard.destroy();
+        Mouse.destroy();
+    }
+    
+    public static InputManager getInputManager()
+    {
+        return gID;
+    }
     
 }
