@@ -30,17 +30,9 @@ public final class NetworkManager {
     {
         @Override
         public void run()
-        {
-            client = new Client();
-            
+        {            
             Kryo kryo = client.getKryo();
-            kryo.register(Object.class);
-            kryo.register(UpdateRequest.class);
-            //kryo.register(UpdateResponse.class,new ClassSerializer(kryo));
-            kryo.register(ServerRequest.class,new ClassSerializer(kryo));
-            kryo.register(GameObject.class);
-            kryo.register(ArrayList.class, new CollectionSerializer(kryo));
-            kryo.register(PlayerObject.class);
+            new KryoNetworking(kryo);
 
             client.start();
             client.addListener(new Listener()
@@ -52,6 +44,7 @@ public final class NetworkManager {
                     {
                         ((ConnectionSuccessful)(callback)).connectedSuccessfully();
                     }
+                    addUpdateRequest();
                 }
 
                 @Override
@@ -63,19 +56,16 @@ public final class NetworkManager {
                 @Override
                 public void received(Connection c, Object o)
                 {
-                    if (o instanceof UpdateResponse)
+                    if (o instanceof ArrayList)
                     {
                         GamestateManager.getGamestateManager().addToUpdateQueue(
-                                ((UpdateResponse)o));
+                                ((ArrayList)o));
                     }
-                    addUpdateRequest();
                 }
             });
             try {
                 client.connect(5000, "localhost", 54555,54777);
-                System.out.println("Connect");
             } catch (IOException ex) {}
-            System.out.println("asdfasdfasdf");
         }
     }
     
@@ -87,6 +77,7 @@ public final class NetworkManager {
                     " instance of the singleton class NetworkManager");
         gID = this;
         nc = new NetworkConnection();
+        client = new Client();
     }
     
     public void disconnect()

@@ -13,7 +13,6 @@ import com.esotericsoftware.kryonet.Server;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
@@ -61,13 +60,7 @@ public final class GameServer {
         
         //Register classes with kryo
         Kryo kryo = server.getKryo();
-            kryo.register(Object.class);
-            kryo.register(UpdateRequest.class);
-            //kryo.register(UpdateResponse.class,new ClassSerializer(kryo));
-            kryo.register(ServerRequest.class,new ClassSerializer(kryo));
-            kryo.register(GameObject.class);
-            kryo.register(ArrayList.class, new CollectionSerializer(kryo));
-            kryo.register(PlayerObject.class);
+            KryoNetworking kryoNetworking = new KryoNetworking(kryo);
         server.start();
         
         try {
@@ -84,14 +77,15 @@ public final class GameServer {
             {
                 if(object instanceof UpdateRequest)
                 {
-                    connection.sendTCP(Main.gameServer.gameObjectManager.getUpdatedObjectsTCP());
-                    //connection.sendUDP(new UpdateResponse(Main.gameServer.gameObjectManager.getUpdatedObjectsUDP()));
-                    serverMessage("Request Recieved from "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
+                    serverMessage("Update Request Recieved from "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
+                    ArrayList response = Main.gameServer.gameObjectManager.getUpdatedObjectsTCP();
+                    int numBytes = connection.sendTCP(response);
+                    serverMessage("Sent Response of size "+numBytes+"bytes to "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
                 }
                 else if(object instanceof ServerRequest)
                 {
                     Main.gameServer.gameObjectManager.addMessage((ServerRequest)object);
-                    serverMessage("Request Recieved from "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
+                    serverMessage("Server Request Recieved from "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
                 }
                 connection.sendTCP(Main.gameServer.gameObjectManager.getUpdatedObjectsTCP());
             }

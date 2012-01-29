@@ -4,13 +4,11 @@
  */
 package shared.networking;
 
-import java.io.Serializable;
-
 /**
  *
  * @author Scott Adams
  */
-public abstract class ServerRequest implements Serializable
+public abstract class ServerRequest
 {
     public int objectId;
     public ServerRequest(int objectId)
