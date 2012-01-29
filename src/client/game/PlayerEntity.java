@@ -20,7 +20,7 @@ public class PlayerEntity extends GameEntity {
         super(p);
         health = p.getHealth();
         
-        renderData = new RenderData("Yugioh", "ass", p);
+        renderData = new RenderData("char1", "Snorlax", p);
         
     }
     

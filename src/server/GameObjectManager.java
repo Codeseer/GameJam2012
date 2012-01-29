@@ -80,7 +80,7 @@ public class GameObjectManager {
     
     public ArrayList<GameObject> getUpdatedObjectsTCP()
     {
-        if(System.nanoTime()-timeLastUpdate>25000)
+        if(System.nanoTime()-timeLastUpdate>50000000)
         {
             ArrayList<GameObject> tcpArray = new ArrayList();
             Iterator<GameEntity> iterator = gameObjects.iterator();
@@ -103,7 +103,7 @@ public class GameObjectManager {
     
     public ArrayList<GameObject> getUpdatedObjectsUDP()
     {
-        if(System.nanoTime()-timeLastUpdate>25000)
+        if(System.nanoTime()-timeLastUpdate>50000000)
         {
             ArrayList<GameObject> udpArray = new ArrayList();
             Iterator<GameEntity> iterator = gameObjects.iterator();
