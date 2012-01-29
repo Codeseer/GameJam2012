@@ -114,6 +114,8 @@ public class Main {
         Display.destroy();*/
         
         videoManager.destroy();
+        
+        System.exit(0);
     }
     
     public static void shutdown()

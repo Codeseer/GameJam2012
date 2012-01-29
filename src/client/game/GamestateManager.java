@@ -36,8 +36,7 @@ public final class GamestateManager {
     
     public synchronized void pushGamestate(Gamestate gamestate)
     {
-        gamestateStack.push(gamestate).create();
-        gamestateStack.peek().onPush();
+        gamestateStack.push(gamestate).onPush();
     }
     
     public synchronized void popGamestate()

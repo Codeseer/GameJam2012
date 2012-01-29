@@ -26,9 +26,8 @@ public class PlayState extends Gamestate {
     public void onPop() {
         // tell resource loader to unload resources
     }
-
-    @Override
-    public void create() {
+    
+    public PlayState() {
         world = new GameWorld();
     }
 

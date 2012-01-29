@@ -15,7 +15,7 @@ public abstract class Gamestate {
     
     public abstract void onPush();
     public abstract void onPop();
-    public abstract void create();
+    //public abstract void create();
     public abstract void update(ArrayList<UpdateResponse> updates);
     
     public abstract void prerender();
