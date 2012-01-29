@@ -5,9 +5,10 @@
 package client.game;
 
 import client.MultipleInstanceException;
+import client.NetworkManager;
 import java.util.ArrayList;
 import java.util.Stack;
-import shared.networking.UpdateResponse;
+import shared.networking.GameObject;
 
 /**
  *
@@ -16,8 +17,9 @@ import shared.networking.UpdateResponse;
 public final class GamestateManager {
     
     private static Stack<Gamestate> gamestateStack;
-    static ArrayList<UpdateResponse> updateQueue;
+    static ArrayList<ArrayList<GameObject>> updateQueue;
     private static GamestateManager gID = null;
+    private long lastUpdate = 0;
     
     public GamestateManager() throws MultipleInstanceException
     {
@@ -45,7 +47,7 @@ public final class GamestateManager {
         gamestateStack.pop().onPop();
     }
     
-    public synchronized void addToUpdateQueue(UpdateResponse a)
+    public synchronized void addToUpdateQueue(ArrayList<GameObject> a)
     {
         updateQueue.add(a);
     }
@@ -54,6 +56,10 @@ public final class GamestateManager {
     {
         if (!gamestateStack.empty())
         {
+            if(System.nanoTime()-lastUpdate>5000)
+            {
+                NetworkManager.getNetworkManager().addUpdateRequest();
+            }
             gamestateStack.peek().update(updateQueue);
             gamestateStack.peek().prerender();
             gamestateStack.peek().render();

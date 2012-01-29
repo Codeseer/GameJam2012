@@ -4,10 +4,9 @@
  */
 package client.game;
 
-import client.NetworkManager;
 import client.graphics.VideoManager;
 import java.util.ArrayList;
-import shared.networking.UpdateResponse;
+import shared.networking.GameObject;
 
 /**
  *
@@ -33,11 +32,18 @@ public class PlayState extends Gamestate {
     }
 
     @Override
-    public void update(ArrayList<UpdateResponse> updates) {
-               
-        for (UpdateResponse u : updates)
+    public void update(ArrayList<ArrayList<GameObject>> updates) {
+         
+        for (ArrayList<GameObject> u : updates)
         {
-            world.update(u.gameObjects);
+            if(u!=null)
+            {
+                world.update(u);
+            }
+            else
+            {
+                System.out.println("Null update found.");
+            }
         }
     }
 

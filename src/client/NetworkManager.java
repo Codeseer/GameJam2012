@@ -30,12 +30,9 @@ public final class NetworkManager {
     {
         @Override
         public void run()
-        {
-            client = new Client();
-            
+        {            
             Kryo kryo = client.getKryo();
-            KryoNetworking kryoNetworking = new KryoNetworking(kryo);
-
+            new KryoNetworking(kryo);
 
             client.start();
             client.addListener(new Listener()
@@ -47,6 +44,7 @@ public final class NetworkManager {
                     {
                         ((ConnectionSuccessful)(callback)).connectedSuccessfully();
                     }
+                    addUpdateRequest();
                 }
 
                 @Override
@@ -58,12 +56,11 @@ public final class NetworkManager {
                 @Override
                 public void received(Connection c, Object o)
                 {
-                    if (o instanceof UpdateResponse)
+                    if (o instanceof ArrayList)
                     {
                         GamestateManager.getGamestateManager().addToUpdateQueue(
-                                ((UpdateResponse)o));
+                                ((ArrayList)o));
                     }
-                    addUpdateRequest();
                 }
             });
             try {
@@ -80,6 +77,7 @@ public final class NetworkManager {
                     " instance of the singleton class NetworkManager");
         gID = this;
         nc = new NetworkConnection();
+        client = new Client();
     }
     
     public void disconnect()

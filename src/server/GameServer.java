@@ -78,7 +78,7 @@ public final class GameServer {
                 if(object instanceof UpdateRequest)
                 {
                     serverMessage("Update Request Recieved from "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
-                    UpdateResponse response = new UpdateResponse(Main.gameServer.gameObjectManager.getUpdatedObjectsTCP());
+                    ArrayList response = Main.gameServer.gameObjectManager.getUpdatedObjectsTCP();
                     int numBytes = connection.sendTCP(response);
                     serverMessage("Sent Response of size "+numBytes+"bytes to "+connection.getRemoteAddressTCP()+"\n",style_unimportant);
                 }
